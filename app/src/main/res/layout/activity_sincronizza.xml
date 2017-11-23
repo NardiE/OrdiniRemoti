@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:id="@+id/mylayout"
+    android:layout_width="match_parent"
+    android:background="@color/mycolor"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/mycolor"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:onClick="importaAnagrafiche"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:onClick="importaAnagrafiche"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="importaAnagrafiche"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="50dp"
+                android:text="Importa Anagrafiche"
+                android:textColor="#ffffff" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="importaAnagrafiche"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/button2"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:scaleType="fitCenter"
+            android:layout_height="match_parent"
+            android:onClick="importaAnagrafiche"
+            android:layout_weight="1"
+            android:background="@drawable/importa" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#ffffff"
+        android:layout_height="0dp"
+        android:onClick="esportaOrdini"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:onClick="esportaOrdini"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="esportaOrdini"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_gravity="center"
+                android:onClick="esportaOrdini"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="50dp"
+                android:text="Esporta Ordini"
+                android:textColor="@color/mycolor" />
+            <TextView
+                android:layout_width="match_parent"
+                android:onClick="esportaOrdini"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <Button
+            android:paddingBottom="10dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:onClick="esportaOrdini"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/esporta"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/mycolor"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#ffffff"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/mycolor"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+</LinearLayout>
