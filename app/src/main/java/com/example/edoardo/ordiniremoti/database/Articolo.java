@@ -1,10 +1,6 @@
 package com.example.edoardo.ordiniremoti.database;
 
 import com.orm.SugarRecord;
-import com.orm.query.Condition;
-import com.orm.query.Select;
-
-import java.util.List;
 
 public class Articolo extends SugarRecord<Articolo> {
     // codice, descrizione, descrizione2, UM, esistenza, numeropezzi
@@ -13,7 +9,7 @@ public class Articolo extends SugarRecord<Articolo> {
     private String descrizione2;
     private String UM;
     private String me;
-    private String in;
+    private String inventario;
     private String cm;
     private String esistenza;
     private String pezzi_confezione;
@@ -23,13 +19,13 @@ public class Articolo extends SugarRecord<Articolo> {
     public Articolo(){
     }
 
-    public Articolo(String codice, String descrizione, String descrizione2, String UM, String me, String in, String cm, String esistenza, String pezzi_confezione, String lotto_vendita, String lotto_riordino) {
+    public Articolo(String codice, String descrizione, String descrizione2, String UM, String me, String inventario, String cm, String esistenza, String pezzi_confezione, String lotto_vendita, String lotto_riordino) {
         this.codice = codice;
         this.descrizione = descrizione;
         this.descrizione2 = descrizione2;
         this.UM = UM;
         this.me = me;
-        this.in = in;
+        this.inventario = inventario;
         this.cm = cm;
         this.esistenza = esistenza;
         this.pezzi_confezione = pezzi_confezione;
@@ -77,12 +73,12 @@ public class Articolo extends SugarRecord<Articolo> {
         this.me = me;
     }
 
-    public String getIn() {
-        return in;
+    public String getInventario() {
+        return inventario;
     }
 
-    public void setIn(String in) {
-        this.in = in;
+    public void setInventario(String inventario) {
+        this.inventario = inventario;
     }
 
     public String getCm() {

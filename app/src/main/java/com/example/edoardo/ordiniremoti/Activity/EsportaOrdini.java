@@ -11,5 +11,7 @@ public class EsportaOrdini extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esporta_ordini);
+
+        //TODO Ad ogni esportazione cancellare il progressivo e rimetterlo a meno 1
     }
 }

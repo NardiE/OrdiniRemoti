@@ -5,17 +5,17 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="60dp">
+
     <TextView
-        android:layout_width="0dp"
-        android:layout_marginLeft="10dp"
         android:id="@+id/codicearticolo"
-        android:text="prova"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:textSize="20dp"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:layout_weight="1"/>
+        android:textSize="20dp" />
     <TextView
         android:layout_width="0dp"
         android:id="@+id/data"

@@ -5,6 +5,7 @@
     android:background="#ffffff"
     android:layout_marginTop="10dp"
     tools:context="com.example.edoardo.ordiniremoti.Activity.Impostazioni">
+
     <ScrollView android:id="@+id/ScrollViewID"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -22,24 +23,26 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"/>
+
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="5"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textStyle="bold"
-                    android:text="Destinatario email:"
-                    android:textColor="#000000"/>
+                    android:layout_weight="5"
+                    android:text="Server FTP:"
+                    android:textSize="30dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/emaildest"
+                    android:id="@+id/serverftp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:gravity="center"
-                    android:hint="info@example.com"
+                    android:hint="ftp.signorini.it"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:textColor="#000000"
+                    android:textSize="30dp"
                     android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
@@ -56,18 +59,23 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:textStyle="bold"
-                    android:text="Oggetto email:"
+                    android:textSize="30dp"
+                    android:text="Porta FTP:"
                     android:textColor="#000000"/>
+
                 <EditText
+                    android:id="@+id/portaftp"
                     android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:inputType="number"
+                    android:ems="2"
+                    android:gravity="center"
+                    android:hint="21"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textStyle="bold"
-                    android:id="@+id/emailsubj"
-                    android:hint="Signorini: "
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -80,21 +88,24 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="5"
+                    android:textSize="30dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                     android:textStyle="bold"
-                    android:text="Nome file carico:"
+                    android:text="Nome Utente:"
                     android:textColor="#000000"/>
+
                 <EditText
+                    android:id="@+id/nomeutente"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/nomecarico"
+                    android:hint="signoriniftp"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textStyle="bold"
-                    android:hint="carico"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
             </LinearLayout><LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -103,52 +114,30 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"/>
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="5"
                 android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Password"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textStyle="bold"
-                android:text="Nome file scarico:"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
             <EditText
+                android:id="@+id/password"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="5"
                 android:gravity="center"
-                android:layout_height="wrap_content"
-                android:id="@+id/nomescarico"
+                android:hint="signorini"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:textStyle="bold"
-                android:hint="scarico"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:textSize="30dp"
+                android:inputType="textPassword"
+                android:textStyle="bold" />
         </LinearLayout>
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textStyle="bold"
-                    android:text="Path salvataggio file"
-                    android:textColor="#000000"/>
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/filepath"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                    android:textStyle="bold"
-                    android:hint="scanner"
-                    android:textColor="#000000"/>
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

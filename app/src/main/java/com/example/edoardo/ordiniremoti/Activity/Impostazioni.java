@@ -28,12 +28,12 @@ public class Impostazioni extends AppCompatActivity {
         EditText portaftp = (EditText) findViewById(R.id.portaftp);
         EditText nomeutente = (EditText) findViewById(R.id.nomeutente);
         EditText password = (EditText) findViewById(R.id.password);
-        EditText listino = (EditText) findViewById(R.id.listino);
+        //EditText listino = (EditText) findViewById(R.id.listino);
         serverftp.setText(sharedpreferences.getString(TipiConfigurazione.serverftp, ""));
         portaftp.setText(sharedpreferences.getString(TipiConfigurazione.portaftp, ""));
         nomeutente.setText(sharedpreferences.getString(TipiConfigurazione.nomeutente, ""));
         password.setText(sharedpreferences.getString(TipiConfigurazione.password,""));
-        listino.setText(sharedpreferences.getString(TipiConfigurazione.listinodefault,""));
+        //listino.setText(sharedpreferences.getString(TipiConfigurazione.listinodefault,""));*/
     }
 
     public void salvaConfigurazioni(View view) {
@@ -43,18 +43,18 @@ public class Impostazioni extends AppCompatActivity {
         String portaftp = ((EditText) findViewById(R.id.portaftp)).getText().toString();
         String nomeutente = ((EditText) findViewById(R.id.nomeutente)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
-        String listino = ((EditText) findViewById(R.id.listino)).getText().toString();
+        //String listino = ((EditText) findViewById(R.id.listino)).getText().toString();
 
         editor.putString(TipiConfigurazione.serverftp, serverftp);
         editor.putString(TipiConfigurazione.portaftp, portaftp);
         editor.putString(TipiConfigurazione.nomeutente, nomeutente);
         editor.putString(TipiConfigurazione.password, password);
-        editor.putString(TipiConfigurazione.listinodefault, listino);
+        //editor.putString(TipiConfigurazione.listinodefault, listino);
         editor.apply();
         editor.commit();
 
         // configurazione incompleta
-        if(serverftp.equals("") || portaftp.equals("") || nomeutente.equals("") || password.equals("") || listino.equals("")){
+        if(serverftp.equals("") || portaftp.equals("") || nomeutente.equals("") || password.equals("")) {// || listino.equals("")){
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setTitle("Avviso");
             builder.setMessage("Configurazione Incompleta");

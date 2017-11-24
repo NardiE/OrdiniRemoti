@@ -10,6 +10,9 @@ public class ScontoCA extends SugarRecord<Listino> {
     private String codicecliente;
     private String codicearticolo;
     private String sconto;
+    public ScontoCA(){
+
+    }
 
     public ScontoCA(String codicecliente, String codicearticolo, String sconto) {
         this.codicecliente = codicecliente;

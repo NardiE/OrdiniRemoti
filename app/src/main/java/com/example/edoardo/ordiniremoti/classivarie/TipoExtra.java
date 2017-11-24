@@ -6,7 +6,10 @@ package com.example.edoardo.ordiniremoti.classivarie;
 
 public class TipoExtra {
     public static String tipoop = "tipoop";
-    public static String tipoopchiamante = "tipoopchiamante";
-    public static String barcode = "barcode";
-    public static String id = "id";
+    public static String tipoopprecedente = "tipoopchiamante";
+
+    // per modifica
+    public static String numeroordine = "numeroordine";
+    public static String codicecliente = "codicecliente";
+    public static String destinazione = "destinazione";
 }
