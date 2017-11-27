@@ -6,7 +6,7 @@ import com.orm.SugarRecord;
  * Created by edoardo on 23/11/2017.
  */
 
-public class ListinoCliente extends SugarRecord<Listino> {
+public class ListinoCliente extends SugarRecord<ListinoCliente> {
     String codicecliente;
     String codicearticolo;
     Float qt1;

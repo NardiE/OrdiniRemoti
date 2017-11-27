@@ -95,10 +95,10 @@ public class Query {
         Listino l3 = new Listino("ART2","TUO",new Float(2),new Float(8),"SC1","",new Float(4),new Float(6),"SC1","",new Float(4),new Float(2),"SC1","",new Float(4),new Float(2),"SC2","");
         Listino l4 = new Listino("ART2","TUO",new Float(2),new Float(7),"SC2","",new Float(4),new Float(5),"SC2","",new Float(4),new Float(2),"SC2","",new Float(4),new Float(2),"SC2","");
 
-        Destinazione d1 = new Destinazione("CLIENTE1","DES1","Via uno","Colle","via uno 61","50054","Colle","SI");
-        Destinazione d2 = new Destinazione("CLIENTE1","DES2","Via due","Colle","via uno 61","50054","Colle","SI");
-        Destinazione d3 = new Destinazione("CLIENTE2","DES3","Via tre","Colle","via uno 61","50054","Colle","SI");
-        Destinazione d4 = new Destinazione("CLIENTE3","DES4","Via quattro","Colle","via uno 61","50054","Colle","SI");
+        Destinazione d1 = new Destinazione("CLIENTE1","DES1  ","Via uno","Colle","via uno 61","50054","Colle","SI");
+        Destinazione d2 = new Destinazione("CLIENTE1","DES2  ","Via due","Colle","via uno 61","50054","Colle","SI");
+        Destinazione d3 = new Destinazione("CLIENTE2","DES3  ","Via tre","Colle","via uno 61","50054","Colle","SI");
+        Destinazione d4 = new Destinazione("CLIENTE3","DES4  ","Via quattro","Colle","via uno 61","50054","Colle","SI");
 
         ListinoCliente lc1 = new ListinoCliente("CLIENTE1","ART1",new Float(2),new Float(6.5),"SC2",new Float(2),new Float(5.5),"SC2",new Float(2),new Float(5.5),"SC2",new Float(2),new Float(5.5),"SC2");
         ListinoCliente lc2 = new ListinoCliente("CLIENTE2","ART2",new Float(2),new Float(2.5),"SC2",new Float(2),new Float(1.5),"",new Float(2),new Float(1.5),"SC2",new Float(2),new Float(1.5),"SC2");

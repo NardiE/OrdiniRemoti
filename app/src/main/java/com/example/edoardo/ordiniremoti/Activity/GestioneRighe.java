@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.edoardo.ordiniremoti.R;
 
-public class RigheOrdini extends AppCompatActivity {
+public class GestioneRighe extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

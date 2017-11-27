@@ -6,7 +6,7 @@ import com.orm.SugarRecord;
  * Created by edoardo on 23/11/2017.
  */
 
-public class ScontoCA extends SugarRecord<Listino> {
+public class ScontoCA extends SugarRecord<ScontoCA> {
     private String codicecliente;
     private String codicearticolo;
     private String sconto;

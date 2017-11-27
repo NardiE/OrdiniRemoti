@@ -18,7 +18,7 @@ public class ListaOrdini extends AppCompatActivity {
     }
 
     public void inserisciordine(View view) {
-        Intent i = new Intent(this,TestataOrdini.class);
+        Intent i = new Intent(this,GestioneOrdini.class);
         i.putExtra(TipoExtra.tipoop, TipoOp.OP_INSERISCI);
         startActivity(i);
     }

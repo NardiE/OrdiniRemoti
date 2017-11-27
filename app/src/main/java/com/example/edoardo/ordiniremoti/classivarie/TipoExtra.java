@@ -12,4 +12,8 @@ public class TipoExtra {
     public static String numeroordine = "numeroordine";
     public static String codicecliente = "codicecliente";
     public static String destinazione = "destinazione";
+
+    //per selezione cliente
+    public static String idcliente = "idcliente";
+    public static String idordine = "idordine";
 }

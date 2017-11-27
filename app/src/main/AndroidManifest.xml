@@ -28,7 +28,7 @@
             android:value="ordiniremoti.db" />
         <meta-data
             android:name="VERSION"
-            android:value="4" />
+            android:value="5" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -38,8 +38,8 @@
 
         <activity android:name=".Activity.SearchClient" />
         <activity android:name=".Activity.SearchArticolo" />
-        <activity android:name=".Activity.TestataOrdini" />
-        <activity android:name=".Activity.RigheOrdini" />
+        <activity android:name=".Activity.GestioneOrdini" />
+        <activity android:name=".Activity.GestioneRighe" />
         <activity android:name=".Activity.Sincronizza" />
         <activity android:name=".Activity.ImportaAnagrafiche" />
         <activity android:name=".Activity.Impostazioni" />

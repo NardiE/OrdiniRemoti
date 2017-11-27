@@ -6,7 +6,7 @@ import com.orm.SugarRecord;
  * Created by edoardo on 23/11/2017.
  */
 
-public class TabellaSconto extends SugarRecord<Listino> {
+public class TabellaSconto extends SugarRecord<TabellaSconto> {
     String codice;
     Float sconto1;
     Float sconto2;

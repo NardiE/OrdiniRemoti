@@ -41,6 +41,7 @@ public class OrdiniRemoti extends AppCompatActivity {
         //chiedo i permessi
         getPermission();
 
+        Query.cleanUp();
         Query.insertSample();
 
         //copio db
@@ -166,5 +167,7 @@ public class OrdiniRemoti extends AppCompatActivity {
 
 
     public void iniziaGestioneOrdini(View view) {
+        Intent i = new Intent(this,ListaOrdini.class);
+        startActivity(i);
     }
 }

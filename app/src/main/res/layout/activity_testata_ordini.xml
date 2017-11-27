@@ -5,52 +5,60 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
             <TextView
-                android:layout_gravity="center"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="50dp"
+                android:layout_gravity="center"
                 android:background="@color/mycolor"
+                android:gravity="center"
+                android:text="Cliente"
+                android:onClick="cercaCliente"
                 android:textColor="#ffffff"
-                android:text="Cliente"/>
+                android:textSize="50dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
+
                     <TextView
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="10dp"
+                        android:gravity="center_vertical"
                         android:paddingLeft="15dp"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
                         android:text="Codice:"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/codicecliente"
@@ -79,6 +87,7 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -268,21 +277,25 @@
                 android:text="N° ordine"/>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
         android:orientation="horizontal">
+
         <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_width="0dp"
             android:orientation="horizontal">
+
             <Spinner
                 android:id="@+id/spinnerdestinazione"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -295,44 +308,46 @@
                 android:layout_gravity="center"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Data Consegna"
                 android:inputType="date"
                 android:textColor="@color/mycolor"
                 android:textSize="30dp" />
         </LinearLayout>
+
         <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_width="0dp">
+            android:layout_weight="1">
+
             <EditText
                 android:id="@+id/edittextdataordine"
-                android:hint="Data Ordine"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/mycolor"
-                android:textSize="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:ems="10"
-                android:inputType="date" />
+                android:gravity="center"
+                android:inputType="date"
+                android:textColor="@color/mycolor"
+                android:textSize="30dp" />
         </LinearLayout>
+
         <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_width="0dp">
+            android:layout_weight="1">
+
             <EditText
                 android:id="@+id/edittextnumeroordine"
-                android:hint="Numero Ordine"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/mycolor"
-                android:textSize="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:ems="10"
-                android:inputType="date" />
+                android:gravity="center"
+                android:inputType="date"
+                android:textColor="@color/mycolor"
+                android:textSize="30dp" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -364,16 +379,16 @@
                 android:textSize="20dp"
                 android:text="Note Testata"
                 />
+
             <EditText
                 android:id="@+id/edittextnotetestata"
-                android:hint="Note Testata"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/mycolor"
-                android:textSize="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text" />
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:inputType="text"
+                android:textColor="@color/mycolor"
+                android:textSize="30dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
