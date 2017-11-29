@@ -4,6 +4,7 @@ import com.orm.SugarRecord;
 
 public class RigaOrdine extends SugarRecord<RigaOrdine> {
     // codice, descrizione, descrizione2, UM, esistenza, numeropezzi
+    private int progressivo;
     private int progressivoordine;
     private String codicearticolo;
     private String quantita;
@@ -12,11 +13,13 @@ public class RigaOrdine extends SugarRecord<RigaOrdine> {
     private String scontoarticolo;
     private String dataconsegna;
     private String noteriga;
+    private String tiporiga;
 
-    public RigaOrdine(){
+    public RigaOrdine() {
     }
 
-    public RigaOrdine(int progressivoordine, String codicearticolo, String quantita, String prezzo, String scontocliente, String scontoarticolo, String dataconsegna, String noteriga) {
+    public RigaOrdine(int progressivo, int progressivoordine, String codicearticolo, String quantita, String prezzo, String scontocliente, String scontoarticolo, String dataconsegna, String noteriga, String tiporiga) {
+        this.progressivo = progressivo;
         this.progressivoordine = progressivoordine;
         this.codicearticolo = codicearticolo;
         this.quantita = quantita;
@@ -25,6 +28,15 @@ public class RigaOrdine extends SugarRecord<RigaOrdine> {
         this.scontoarticolo = scontoarticolo;
         this.dataconsegna = dataconsegna;
         this.noteriga = noteriga;
+        this.tiporiga = tiporiga;
+    }
+
+    public int getProgressivo() {
+        return progressivo;
+    }
+
+    public void setProgressivo(int progressivo) {
+        this.progressivo = progressivo;
     }
 
     public int getProgressivoordine() {
@@ -89,5 +101,13 @@ public class RigaOrdine extends SugarRecord<RigaOrdine> {
 
     public void setNoteriga(String noteriga) {
         this.noteriga = noteriga;
+    }
+
+    public String getTiporiga() {
+        return tiporiga;
+    }
+
+    public void setTiporiga(String tiporiga) {
+        this.tiporiga = tiporiga;
     }
 }

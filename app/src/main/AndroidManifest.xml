@@ -13,6 +13,7 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:windowSoftInputMode="stateHidden"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
         <activity android:name=".Activity.OrdiniRemoti">
@@ -28,7 +29,7 @@
             android:value="ordiniremoti.db" />
         <meta-data
             android:name="VERSION"
-            android:value="5" />
+            android:value="9" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -36,8 +37,8 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.example.edoardo.ordiniremoti" />
 
-        <activity android:name=".Activity.SearchClient" />
-        <activity android:name=".Activity.SearchArticolo" />
+        <activity android:name=".Activity.CercaCliente" />
+        <activity android:name=".Activity.CercaArticolo" />
         <activity android:name=".Activity.GestioneOrdini" />
         <activity android:name=".Activity.GestioneRighe" />
         <activity android:name=".Activity.Sincronizza" />

@@ -24,14 +24,15 @@ import com.example.edoardo.ordiniremoti.database.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchClient extends AppCompatActivity {
+public class CercaCliente extends AppCompatActivity {
     ArrayList<Cliente> dataModels;
     Context context;
     Long idordine;
     ListView listView;
     String param;
-    SearchClient sc;
+    CercaCliente sc;
     private int operazione;
+    private int operazioneprecedente;
     private static CustomAdapter adapter;
 
 
@@ -55,6 +56,7 @@ public class SearchClient extends AppCompatActivity {
 
         if(operazione == TipoOp.SELEZIONACLIENTE){
             // se devo selezionare un cliente ricevo un idOrdine
+            operazioneprecedente = extras.getInt(TipoExtra.tipoopprecedente);
             idordine = extras.getLong(TipoExtra.idordine);
         }
 
@@ -85,12 +87,17 @@ public class SearchClient extends AppCompatActivity {
                 if(operazione == TipoOp.SELEZIONACLIENTE){
                     Intent i = new Intent(context, GestioneOrdini.class);
                     i.putExtra(TipoExtra.tipoop,TipoOp.SCELTOCLIENTE);
+                    i.putExtra(TipoExtra.tipoopprecedente,operazioneprecedente);
                     i.putExtra(TipoExtra.idcliente,client.getId());
                     i.putExtra(TipoExtra.idordine,idordine);
                     startActivity(i);
                 }
-                else{
-
+                else if (operazione == TipoOp.FILTRACLIENTE){
+                    Intent i = new Intent(context, ListaOrdini.class);
+                    i.putExtra(TipoExtra.tipoop,TipoOp.SCELTOCLIENTE);
+                    i.putExtra(TipoExtra.codicecliente,client.getCodice());
+                    i.putExtra(TipoExtra.idcliente,client.getId());
+                    startActivity(i);
                 }
             }
         });

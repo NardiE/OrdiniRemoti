@@ -5,7 +5,16 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="60dp">
-
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="0"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:id="@+id/idriga"/>
     <TextView
         android:id="@+id/codicearticolo"
         android:layout_width="0dp"
@@ -16,6 +25,18 @@
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/descrizionearticolo"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
     <TextView
         android:layout_width="0dp"
         android:id="@+id/data"
@@ -56,35 +77,6 @@
         android:textColor="@color/black"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
-    <TextView
-        android:layout_width="0dp"
-        android:id="@+id/descrizionearticolo"
-        android:textColor="@color/black"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:textSize="20dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-    <TextView
-        android:layout_width="0dp"
-        android:id="@+id/notearticolo"
-        android:textColor="@color/black"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:textSize="20dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-    <TextView
-        android:layout_width="0dp"
-        android:id="@+id/progressivo"
-        android:textColor="@color/black"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
-        android:textSize="20dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-    </LinearLayout>
+
+</LinearLayout>
 </LinearLayout>

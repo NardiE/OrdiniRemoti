@@ -1,19 +1,17 @@
 package com.example.edoardo.ordiniremoti.Utility;
 
 
-import com.example.edoardo.ordiniremoti.Activity.SearchClient;
-
-import java.util.List;
+import com.example.edoardo.ordiniremoti.Activity.CercaCliente;
 
 public class ExecutorCliente implements Runnable {
-    private SearchClient sc;
+    private CercaCliente sc;
     String param;
 
-    public SearchClient getSc() {
+    public CercaCliente getSc() {
         return sc;
     }
 
-    public void setSc(SearchClient sc) {
+    public void setSc(CercaCliente sc) {
         this.sc = sc;
     }
 
@@ -25,7 +23,7 @@ public class ExecutorCliente implements Runnable {
         this.param = param;
     }
 
-    public ExecutorCliente(SearchClient sc, String param) {
+    public ExecutorCliente(CercaCliente sc, String param) {
         this.sc = sc;
         this.param = param;
     }

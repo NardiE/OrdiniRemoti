@@ -5,7 +5,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp">
-
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="0"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:id="@+id/listaordiniidordine"/>
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -13,7 +22,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:id="@+id/listaordinicodicecliente"/>
         <TextView
             android:layout_width="0dp"
@@ -22,7 +31,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:id="@+id/listaordiniragionesociale"/>
         <TextView
             android:layout_width="0dp"
@@ -31,7 +40,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:id="@+id/listaordininumeroordine" />
         <TextView
             android:layout_width="0dp"
@@ -40,7 +49,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:id="@+id/listaordinidataordine" />
         <TextView
             android:layout_width="0dp"
@@ -50,6 +59,6 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="30dp"/>
+            android:textSize="20dp"/>
     </LinearLayout>
 </LinearLayout>

@@ -17,6 +17,8 @@ import android.view.View;
 
 import com.example.edoardo.ordiniremoti.R;
 import com.example.edoardo.ordiniremoti.Utility.Utility;
+import com.example.edoardo.ordiniremoti.classivarie.TipoExtra;
+import com.example.edoardo.ordiniremoti.classivarie.TipoOp;
 import com.example.edoardo.ordiniremoti.database.Articolo;
 import com.example.edoardo.ordiniremoti.database.Cliente;
 import com.example.edoardo.ordiniremoti.database.Query;
@@ -41,8 +43,8 @@ public class OrdiniRemoti extends AppCompatActivity {
         //chiedo i permessi
         getPermission();
 
-        Query.cleanUp();
-        Query.insertSample();
+        //Query.cleanUp();
+        //Query.insertSample();
 
         //copio db
         backupDb();
@@ -164,10 +166,9 @@ public class OrdiniRemoti extends AppCompatActivity {
         }
     }
 
-
-
     public void iniziaGestioneOrdini(View view) {
         Intent i = new Intent(this,ListaOrdini.class);
+        i.putExtra(TipoExtra.tipoop, TipoOp.DEFAULT);
         startActivity(i);
     }
 }

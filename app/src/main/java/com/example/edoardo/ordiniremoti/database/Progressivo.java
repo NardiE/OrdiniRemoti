@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Progressivo extends SugarRecord<Progressivo> {
     public static String ORDINE = "ordine";
+    public static String RIGA = "riga";
     private String codice;
     private int valore;
 
@@ -39,6 +40,39 @@ public class Progressivo extends SugarRecord<Progressivo> {
         this.valore = valore;
     }
 
+    public static void creaProgressivoOrdine(){
+        Progressivo p = new Progressivo(Progressivo.ORDINE, -1);
+        p.save();
+    }
+
+    public static boolean eliminaProgressivoOrdine(){
+        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").like(Progressivo.ORDINE)).list();
+
+        if (lp.size() == 1) {
+            Progressivo p = lp.get(0);
+            p.delete();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static boolean aumentaProgressivoOrdine(){
+        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").like(Progressivo.ORDINE)).list();
+
+        if (lp.size() == 1) {
+            Progressivo p = lp.get(0);
+            int valore = p.getValore();
+            p.setValore(valore - 1);
+            p.save();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public static int getLastProgressivoOrdine(){
         List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").like(Progressivo.ORDINE)).list();
         if (lp.size() == 1) {
@@ -48,4 +82,5 @@ public class Progressivo extends SugarRecord<Progressivo> {
             return 1;
         }
     }
+
 }

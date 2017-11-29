@@ -16,4 +16,6 @@ public class TipoExtra {
     //per selezione cliente
     public static String idcliente = "idcliente";
     public static String idordine = "idordine";
+    public static String idriga = "idriga";
+    public static String idarticolo = "idarticolo";
 }

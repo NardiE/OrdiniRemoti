@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textSize="50dp"
+                android:textSize="40dp"
                 android:text="Sincronizza"
                 android:textColor="#ffffff" />
             <TextView
@@ -39,15 +39,32 @@
                 android:onClick="sincronizza"
                 android:layout_weight="1"/>
         </LinearLayout>
-        <Button
-            android:id="@+id/button2"
-            style="@style/Widget.AppCompat.Button.Borderless"
+        <LinearLayout
             android:layout_width="0dp"
-            android:scaleType="fitCenter"
             android:layout_height="match_parent"
-            android:onClick="sincronizza"
             android:layout_weight="1"
-            android:background="@drawable/sync" />
+            android:onClick="iniziaGestioneOrdini"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:onClick="sincronizza"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/button2"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:onClick="sincronizza"
+                android:background="@drawable/sync" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:onClick="sincronizza"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textSize="50dp"
+                android:textSize="40dp"
                 android:text="Gestione Ordini"
                 android:textColor="@color/mycolor" />
             <TextView
@@ -84,17 +101,34 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
         </LinearLayout>
-        <Button
-            android:paddingBottom="10dp"
-            android:scaleType="fitCenter"
-            android:id="@+id/button"
-            style="@style/Widget.AppCompat.Button.Borderless"
+        <LinearLayout
             android:layout_width="0dp"
-            android:onClick="iniziaGestioneOrdini"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/item"/>
+            android:onClick="iniziaGestioneOrdini"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:onClick="iniziaGestioneOrdini"
+                android:layout_weight="1"/>
+            <Button
+                android:paddingBottom="10dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:onClick="iniziaGestioneOrdini"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="@drawable/item"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:onClick="iniziaGestioneOrdini"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -115,7 +149,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:background="@color/mycolor"
         android:orientation="horizontal">
 

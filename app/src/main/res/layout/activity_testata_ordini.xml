@@ -81,7 +81,6 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="123456789123456789"
                     android:textColor="@color/black"
                     android:textSize="20dp" />
             </LinearLayout>
@@ -92,12 +91,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -125,7 +126,6 @@
                     android:layout_marginRight="10dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="Via ugolini 6 Castelfiorentino FI"
                     android:textColor="@color/black"
                     android:textSize="20dp" />
 
@@ -150,9 +150,9 @@
                     android:layout_marginRight="10dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="057164655"
                     android:textColor="@color/black"
                     android:textSize="20dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -174,10 +174,10 @@
                     android:layout_marginRight="10dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="nardiedoardo@gmail.com"
                     android:textColor="@color/black"
                     android:textSize="20dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -205,7 +205,6 @@
                     android:layout_marginRight="10dp"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="Bonifico Bancario MONTE DEI PASCHI DI SIENA"
                     android:textColor="@color/black"
                     android:textSize="20dp" />
             </LinearLayout>
@@ -307,6 +306,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:ems="10"
+                android:maxLength="10"
                 android:gravity="center"
                 android:inputType="date"
                 android:textColor="@color/mycolor"
@@ -324,6 +324,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:ems="10"
+                android:maxLength="10"
                 android:gravity="center"
                 android:inputType="date"
                 android:textColor="@color/mycolor"
@@ -340,7 +341,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:ems="10"
+                android:ems="30"
+                android:maxLength="30"
                 android:gravity="center"
                 android:inputType="date"
                 android:textColor="@color/mycolor"
@@ -387,6 +389,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:inputType="text"
+                android:maxLength="180"
                 android:textColor="@color/mycolor"
                 android:textSize="30dp" />
         </LinearLayout>
@@ -394,22 +397,28 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="creaRiga"
             android:background="@color/mycolor"
             android:orientation="vertical">
+
             <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:text="Aggiungi Riga"
+                android:layout_weight="1"
                 android:background="@color/mycolor"
-                android:layout_weight="1"/>
+                android:gravity="center"
+                android:onClick="creaRiga"
+                android:text="Aggiungi Riga"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
             <ImageButton
                 android:scaleType="fitCenter"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:onClick="creaRiga"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -426,16 +435,30 @@
         android:layout_marginTop="10dp"
         android:layout_weight="2"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_marginLeft="10dp"
-            android:text="Codice Art."
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:textSize="20dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Codice A."
             android:textColor="@color/black"
-            android:layout_weight="1"/>
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Desc. A."
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_marginLeft="10dp"
@@ -476,41 +499,14 @@
             android:textColor="@color/black"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
-        <TextView
-            android:layout_width="0dp"
-            android:text="Descrizione Art."
-            android:textColor="@color/black"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:textSize="20dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <TextView
-            android:layout_width="0dp"
-            android:text="Note Art."
-            android:textColor="@color/black"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:textSize="20dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <TextView
-            android:layout_width="0dp"
-            android:text="Progressivo"
-            android:textColor="@color/black"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:textSize="20dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="14">
+        android:layout_weight="14"
+        android:orientation="horizontal">
 
         <ListView
             android:id="@+id/listrighe"
@@ -535,6 +531,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/mycolor"
+                android:onClick="goBack"
                 app:srcCompat="@drawable/undo"
                 />
         </LinearLayout>
@@ -544,11 +541,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
             <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/mycolor"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/conferma" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/mycolor"
+                android:scaleType="fitCenter"
+                android:onClick="confermaOrdine"
+                app:srcCompat="@drawable/conferma" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

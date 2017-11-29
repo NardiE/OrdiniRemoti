@@ -3,6 +3,7 @@ package com.example.edoardo.ordiniremoti.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,18 +17,27 @@ import android.widget.ListView;
 
 import com.example.edoardo.ordiniremoti.R;
 import com.example.edoardo.ordiniremoti.CustomAdapter2;
+import com.example.edoardo.ordiniremoti.classivarie.TipoExtra;
+import com.example.edoardo.ordiniremoti.classivarie.TipoOp;
 import com.example.edoardo.ordiniremoti.database.Articolo;
+import com.example.edoardo.ordiniremoti.database.Cliente;
 import com.example.edoardo.ordiniremoti.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchArticolo extends AppCompatActivity {
+import static com.example.edoardo.ordiniremoti.R.drawable.client;
+
+public class CercaArticolo extends AppCompatActivity {
     ArrayList<Articolo> dataModels;
     Context context;
     String param;
-    SearchArticolo sa;
+    CercaArticolo sa;
     ListView listView;
+    private int operazione;
+    private int operazioneprecedente;
+    Long idordine;
+    Long idriga;
     private static CustomAdapter2 adapter;
 
 
@@ -46,40 +56,52 @@ public class SearchArticolo extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.logomin);
 
-        listView = (ListView) findViewById(R.id.articolo_list);
 
-        List<Articolo> articoli = Query.getTop100Items();
-        updateList(articoli);
+        //controllo se devo filtrare gli ordini o selezionare un cliente
+        Bundle extras = getIntent().getExtras();
+        operazione = extras.getInt(TipoExtra.tipoop);
 
-        // listener per la ricerca veloce
-        setEditTextListener();
-
-        adapter = new CustomAdapter2(dataModels, getApplicationContext());
-
-        listView.setAdapter(adapter);
-
-        sa = this;
-
-        //TODO procedura avvio azioni clienti
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object object= dataModels.get(position);
-                Articolo artic=(Articolo)object;
-                new AlertDialog.Builder(context)
-                        .setTitle(artic.getCodice().toString())
-                        .setMessage("Descrizione: " + artic.getDescrizione() + " " + artic.getDescrizione2() + "\n" + "UM: " + artic.getUM() + "\n" + "Esistenza: " + artic.getEsistenza() )
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null).show();
+        if(operazione == TipoOp.SELEZIONAARTICOLO) {
+                // se devo selezionare un cliente ricevo un idOrdine
+                operazioneprecedente = extras.getInt(TipoExtra.tipoopprecedente);
+                idordine = extras.getLong(TipoExtra.idordine);
+                idriga = extras.getLong(TipoExtra.idriga);
             }
-        });
 
-        adapter.notifyDataSetChanged();
+            listView = (ListView) findViewById(R.id.articolo_list);
 
+            List<Articolo> articoli = Query.getTop100Items();
+            updateList(articoli);
+
+            // listener per la ricerca veloce
+            setEditTextListener();
+
+            adapter = new CustomAdapter2(dataModels, getApplicationContext());
+
+            listView.setAdapter(adapter);
+
+            sa = this;
+
+            //TODO procedura avvio azioni clienti
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Object object = dataModels.get(position);
+                    Articolo art = (Articolo) object;
+                    if (operazione == TipoOp.SELEZIONAARTICOLO) {
+                        Intent i = new Intent(context, GestioneRighe.class);
+                        i.putExtra(TipoExtra.tipoop, TipoOp.SCELTOARTICOLO);
+                        i.putExtra(TipoExtra.tipoopprecedente, operazioneprecedente);
+                        i.putExtra(TipoExtra.idarticolo, art.getId());
+                        i.putExtra(TipoExtra.idordine, idordine);
+                        i.putExtra(TipoExtra.idriga, idriga);
+                        startActivity(i);
+                    }
+
+                }
+            });
+
+            adapter.notifyDataSetChanged();
     }
 
     public void delete(View view) {

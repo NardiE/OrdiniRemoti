@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Ordini Remoti</string>
+
+    <string-array name="menu">
+        <item>Modifica</item>
+        <item>Elimina</item>
+        <item>Annulla</item>
+    </string-array>
+
 </resources>
