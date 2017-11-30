@@ -8,16 +8,16 @@ import com.orm.SugarRecord;
 
 public class TabellaSconto extends SugarRecord<TabellaSconto> {
     String codice;
-    Float sconto1;
-    Float sconto2;
-    Float sconto3;
-    Float sconto4;
-    Float sconto5;
+    String sconto1;
+    String sconto2;
+    String sconto3;
+    String sconto4;
+    String sconto5;
 
     public TabellaSconto() {
     }
 
-    public TabellaSconto(String codice, Float sconto1, Float sconto2, Float sconto3, Float sconto4, Float sconto5) {
+    public TabellaSconto(String codice, String sconto1, String sconto2, String sconto3, String sconto4, String sconto5) {
         this.codice = codice;
         this.sconto1 = sconto1;
         this.sconto2 = sconto2;
@@ -34,43 +34,43 @@ public class TabellaSconto extends SugarRecord<TabellaSconto> {
         this.codice = codice;
     }
 
-    public Float getSconto1() {
+    public String getSconto1() {
         return sconto1;
     }
 
-    public void setSconto1(Float sconto1) {
+    public void setSconto1(String sconto1) {
         this.sconto1 = sconto1;
     }
 
-    public Float getSconto2() {
+    public String getSconto2() {
         return sconto2;
     }
 
-    public void setSconto2(Float sconto2) {
+    public void setSconto2(String sconto2) {
         this.sconto2 = sconto2;
     }
 
-    public Float getSconto3() {
+    public String getSconto3() {
         return sconto3;
     }
 
-    public void setSconto3(Float sconto3) {
+    public void setSconto3(String sconto3) {
         this.sconto3 = sconto3;
     }
 
-    public Float getSconto4() {
+    public String getSconto4() {
         return sconto4;
     }
 
-    public void setSconto4(Float sconto4) {
+    public void setSconto4(String sconto4) {
         this.sconto4 = sconto4;
     }
 
-    public Float getSconto5() {
+    public String getSconto5() {
         return sconto5;
     }
 
-    public void setSconto5(Float sconto5) {
+    public void setSconto5(String sconto5) {
         this.sconto5 = sconto5;
     }
 }

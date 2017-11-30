@@ -74,23 +74,23 @@ public class ImportazioneHelper {
     public static Listino importaListino(String line){
         String codicearticolo = line.substring(0,0 + 15);
         String codicelistino = line.substring(15,18);
-        Float qt1 = Float.parseFloat(line.substring(18,35));
-        Float prezzo1 = Float.parseFloat(line.substring(35,52));
+        String qt1 = (line.substring(18,35));
+        String prezzo1 = (line.substring(35,52));
         String sconto1 = line.substring(52,55);
         String provvigioni1 = line.substring(55,63);
 
-        Float qt2 = Float.parseFloat(line.substring(63,80));
-        Float prezzo2 = Float.parseFloat(line.substring(80,97));
+        String qt2 = line.substring(63,80);
+        String prezzo2 = line.substring(80,97);
         String sconto2 = line.substring(97,100);
         String provvigioni2 = line.substring(100,108);
 
-        Float qt3 = Float.parseFloat(line.substring(108,125));
-        Float prezzo3 = Float.parseFloat(line.substring(125,142));
+        String qt3 = line.substring(108,125);
+        String prezzo3 = line.substring(125,142);
         String sconto3 = line.substring(142,145);
         String provvigioni3 = line.substring(145,153);
 
-        Float qt4 = Float.parseFloat(line.substring(153,170));
-        Float prezzo4 = Float.parseFloat(line.substring(170,187));
+        String qt4 = line.substring(153,170);
+        String prezzo4 = line.substring(170,187);
         String sconto4 = line.substring(187,190);
         String provvigioni4 = line.substring(190,198);
         Listino listi = new Listino(codicearticolo, codicelistino,qt1, prezzo1, sconto1, provvigioni1, qt2, prezzo2, sconto2, provvigioni2, qt3, prezzo3, sconto3, provvigioni3, qt4, prezzo4, sconto4, provvigioni4);
@@ -122,20 +122,20 @@ public class ImportazioneHelper {
     public static ListinoCliente importaListinoCliente(String line) {
         String codicecliente = line.substring(0, 0 + 8);
         String codicearticolo = line.substring(8, 23);
-        Float qt1 = Float.parseFloat(line.substring(23, 40));
-        Float prezzo1 = Float.parseFloat(line.substring(40, 57));
+        String qt1 = line.substring(23, 40);
+        String prezzo1 = line.substring(40, 57);
         String sconto1 = line.substring(57, 60);
 
-        Float qt2 = Float.parseFloat(line.substring(60, 77));
-        Float prezzo2 = Float.parseFloat(line.substring(77, 94));
+        String qt2 = line.substring(60, 77);
+        String prezzo2 = line.substring(77, 94);
         String sconto2 = line.substring(94, 97);
 
-        Float qt3 = Float.parseFloat(line.substring(97, 114));
-        Float prezzo3 = Float.parseFloat(line.substring(114, 131));
+        String qt3 = line.substring(97, 114);
+        String prezzo3 = line.substring(114, 131);
         String sconto3 = line.substring(131, 134);
 
-        Float qt4 = Float.parseFloat(line.substring(134, 151));
-        Float prezzo4 = Float.parseFloat(line.substring(151, 168));
+        String qt4 = (line.substring(134, 151));
+        String prezzo4 = line.substring(151, 168);
         String sconto4 = line.substring(168, 171);
         ListinoCliente listic = new ListinoCliente(codicecliente, codicearticolo, qt1, prezzo1, sconto1, qt2, prezzo2, sconto2, qt3, prezzo3, sconto3, qt4, prezzo4, sconto4);
         listic.save();
@@ -144,11 +144,11 @@ public class ImportazioneHelper {
 
     public static TabellaSconto importaTabellaSconto(String line) {
         String codice = line.substring(0, 0 + 3);
-        Float sconto1 = Float.parseFloat(line.substring(3, 10));
-        Float sconto2 = Float.parseFloat(line.substring(10, 17));
-        Float sconto3 = Float.parseFloat(line.substring(17, 24));
-        Float sconto4 = Float.parseFloat(line.substring(24, 31));
-        Float sconto5 = Float.parseFloat(line.substring(31, 38));
+        String sconto1 = (line.substring(3, 10));
+        String sconto2 = (line.substring(10, 17));
+        String sconto3 = (line.substring(17, 24));
+        String sconto4 = (line.substring(24, 31));
+        String sconto5 = (line.substring(31, 38));
         TabellaSconto sco = new TabellaSconto(codice, sconto1, sconto2, sconto3, sconto4, sconto5);
         sco.save();
         return sco;

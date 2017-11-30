@@ -62,6 +62,7 @@ public class GestioneOrdini extends AppCompatActivity {
         operazione = extras.getInt(TipoExtra.tipoop);
 
         if(operazione == TipoOp.OP_INSERISCI) {
+            mostracampi(false);
             // assegno un progressivo negativo dal momento che è un ordine inserito
             int progressivo = Progressivo.getLastProgressivoOrdine();
             if(!Progressivo.aumentaProgressivoOrdine()) Utility.creaDialogoVeloce(context,"Rivolgersi Immediatamente all'assistenza","Errore Grave");
@@ -70,6 +71,7 @@ public class GestioneOrdini extends AppCompatActivity {
         }
 
         if(operazione == TipoOp.OP_MODIFICA){
+            mostracampi(true);
             //vado a modificare un ordine
             Long idordine = extras.getLong(TipoExtra.idordine);
             testata = TestataOrdine.findById(TestataOrdine.class, idordine);
@@ -84,6 +86,7 @@ public class GestioneOrdini extends AppCompatActivity {
         }
 
         if(operazione == TipoOp.SCELTOCLIENTE  ){
+            mostracampi(true);
             // ho scelto il cliente
 
             // recupero l'ordine
@@ -109,6 +112,7 @@ public class GestioneOrdini extends AppCompatActivity {
         }
 
         if(operazione == TipoOp.INSERITARIGA){
+            mostracampi(true);
             // recupero l'ordine
             Long idordine = extras.getLong(TipoExtra.idordine);
             testata = TestataOrdine.findById(TestataOrdine.class, idordine);
@@ -221,7 +225,7 @@ public class GestioneOrdini extends AppCompatActivity {
     }
 
     public void cercaCliente(View view) {
-        if(operazione != TipoOp.OP_MODIFICA) {
+        if(operazione == TipoOp.OP_INSERISCI) {
             updateAndSave(false);
             testata.save();
             Intent i = new Intent(this, CercaCliente.class);
@@ -234,10 +238,6 @@ public class GestioneOrdini extends AppCompatActivity {
             Utility.creaDialogoVeloce(context,"Impossibile modificare Cliente per un ordine già inserito","Attenzione").create().show();
         }
         //TODO GESTIRE ANCHE MODIFICA DEL CLIENTE TORNATO DA RIGHE
-    }
-
-    private ListAdapter aggiornaListaArticoli() {
-        return null;
     }
 
     private boolean updateAndSave(boolean verbose){
@@ -475,5 +475,18 @@ public class GestioneOrdini extends AppCompatActivity {
         String[] from = {"IDRIGA","CODICEART", "DESCRART", "DATAORDINE","QUANTITA", "PREZZO", "SCONTO"};
         int[] to = {R.id.idriga, R.id.codicearticolo, R.id.descrizionearticolo, R.id.data,R.id.quantita, R.id.prezzo, R.id.sconto};
         return new SimpleAdapter(getApplicationContext(), data, R.layout.rigalista,from, to);
+    }
+
+    private void mostracampi(boolean mostra){
+        int visible;
+        if (mostra == true) visible = View.VISIBLE;
+        else visible = View.INVISIBLE;
+        findViewById(R.id.tl1).setVisibility(visible);
+        findViewById(R.id.tl2).setVisibility(visible);
+        findViewById(R.id.tl3).setVisibility(visible);
+        findViewById(R.id.tl4).setVisibility(visible);
+        findViewById(R.id.tl5).setVisibility(visible);
+        findViewById(R.id.tl6).setVisibility(visible);
+        findViewById(R.id.tl7).setVisibility(visible);
     }
 }

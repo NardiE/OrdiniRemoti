@@ -11,12 +11,6 @@ import java.util.List;
  */
 
 public class Query {
-    public static List<Listino> getListino(String codicearticolo, String codicelistino){
-        String SQL1 = "SELECT * FROM LISTINO WHERE CODICEARTICOLO LIKE '%" + codicearticolo + "%' AND CODICELISTINO LIKE '%" + codicelistino + "%'";
-        List<Listino> listinofind;
-        listinofind = Listino.findWithQuery(Listino.class,SQL1);
-        return listinofind;
-    }
     public static List<Articolo> getArticolo(String codicearticolo){
         String SQL1 = "SELECT * FROM ARTICOLO WHERE CODICE LIKE '%" + codicearticolo + "%'";
         List<Articolo> articolofind;
@@ -98,34 +92,34 @@ public class Query {
         Cliente c1 = new Cliente("CLIENTE1","Cliente Uno","Spa","MIO","057164655","","","Via Rossi 46","50051","Castelfiorentino","Firenze","","","","edo--91@hotmail.it","RIB","Ricevuta Bancaria","Banca Popolare di Milano","vettore1","vettore2");
         Cliente c2 = new Cliente("CLIENTE2","Cliente Due","Spa","TUO","057164655","","","Via Bianchi 46","50051","Castelfiorentino","Firenze","","","","edo--91@hotmail.it","RIB","Ricevuta Bancaria","Banca Popolare di Milano","vettore1","vettore2");
         Cliente c3 = new Cliente("CLIENTE3","Cliente Tre","Spa","SUO","057164655","","","Via Rossi 46","50051","Castelfiorentino","Firenze","","","","edo--91@hotmail.it","RIB","Ricevuta Bancaria","Banca Popolare di Milano","vettore1","vettore2");
+        Cliente c4 = new Cliente("CLIENTE3","Cliente Tre","Spa","   ","057164655","","","Via Rossi 46","50051","Castelfiorentino","Firenze","","","","edo--91@hotmail.it","RIB","Ricevuta Bancaria","Banca Popolare di Milano","vettore1","vettore2");
 
         Articolo a1 = new Articolo("ART1", "Articolo Uno", "Di Tanti","PZ.","ME1","IN1","CM1","40","2","123","124");
         Articolo a2 = new Articolo("ART2", "Articolo Due", "Di Tanti","NR.","ME2","IN1","CM2","40","2","123","124");
 
-        Listino l1 = new Listino("ART1","MIO",new Float(2),new Float(3),"SC1","",new Float(4),new Float(2),"SC2","",new Float(4),new Float(2),"SC2","",new Float(4),new Float(2),"SC2","");
-        Listino l2 = new Listino("ART1","TUO",new Float(2),new Float(4),"SC2","",new Float(4),new Float(3),"SC2","",new Float(4),new Float(2),"SC2","",new Float(4),new Float(2),"SC2","");
-        Listino l3 = new Listino("ART2","TUO",new Float(2),new Float(8),"SC1","",new Float(4),new Float(6),"SC1","",new Float(4),new Float(2),"SC1","",new Float(4),new Float(2),"SC2","");
-        Listino l4 = new Listino("ART2","TUO",new Float(2),new Float(7),"SC2","",new Float(4),new Float(5),"SC2","",new Float(4),new Float(2),"SC2","",new Float(4),new Float(2),"SC2","");
+        Listino l1 = new Listino("ART1","MIO","2","3","SC1","","4","2","SC2","","6","2","SC3","","8","2","SC2","");
+        Listino l2 = new Listino("ART1","TUO","1","3","SC1","","4","2","SC2","","10","2","SC3","","12","2","SC2","");
 
         Destinazione d1 = new Destinazione("CLIENTE1","DES1  ","Via uno","Colle","via uno 61","50054","Colle","SI");
         Destinazione d2 = new Destinazione("CLIENTE1","DES2  ","Via due","Colle","via uno 61","50054","Colle","SI");
         Destinazione d3 = new Destinazione("CLIENTE2","DES3  ","Via tre","Colle","via uno 61","50054","Colle","SI");
         Destinazione d4 = new Destinazione("CLIENTE3","DES4  ","Via quattro","Colle","via uno 61","50054","Colle","SI");
 
-        ListinoCliente lc1 = new ListinoCliente("CLIENTE1","ART1",new Float(2),new Float(6.5),"SC2",new Float(2),new Float(5.5),"SC2",new Float(2),new Float(5.5),"SC2",new Float(2),new Float(5.5),"SC2");
-        ListinoCliente lc2 = new ListinoCliente("CLIENTE2","ART2",new Float(2),new Float(2.5),"SC2",new Float(2),new Float(1.5),"",new Float(2),new Float(1.5),"SC2",new Float(2),new Float(1.5),"SC2");
+        ListinoCliente lc1 = new ListinoCliente("CLIENTE1","ART1","2","6.5","SC2","4","5.5","SC2","6","5.5","SC3","8","5.5","SC2");
+        ListinoCliente lc2 = new ListinoCliente("CLIENTE2","ART2","1","6.5","SC2","2","5.5","SC2","3","5.5","SC3","10","5.5","SC2");
 
-        TabellaSconto tb1 = new TabellaSconto("SC1",new Float(-50.00),new Float(-30.00),new Float(-15.00),new Float(0),new Float(0));
-        TabellaSconto tb2 = new TabellaSconto("SC2",new Float(-40.00),new Float(-20.00),new Float(-10.00),new Float(0),new Float(0));
-        TabellaSconto tb3 = new TabellaSconto("SC3",new Float(-10.00),new Float(-5.00),new Float(0),new Float(0),new Float(0));
+
+        TabellaSconto tb1 = new TabellaSconto("SC1","-50.00","-30.00","-15.00","0","0");
+        TabellaSconto tb2 = new TabellaSconto("SC2","-55.00","-30.00","-15.00","0","0");
+        TabellaSconto tb3 = new TabellaSconto("SC3","-60.00","-30.00","-15.00","0","0");
 
         ScontoC sc = new ScontoC("CLIENTE 3","SC1");
 
-        ScontoCM scm = new ScontoCM("CLIENTE1","CM1","SC3");
+        ScontoCM scm = new ScontoCM("CLIENTE1","ME2","SC3");
 
         ScontoCA sca = new ScontoCA("CLIENTE1","ART1","SC2");
 
-        c1.save();c2.save();c3.save();a1.save();a2.save();l1.save();l2.save();l3.save();l4.save();d1.save();d2.save();d3.save();d4.save();lc1.save();lc2.save();tb1.save();tb2.save();tb3.save();sc.save();scm.save();
+        c1.save();c2.save();c3.save();a1.save();a2.save();l1.save();l2.save();d1.save();d2.save();d3.save();d4.save();lc1.save();lc2.save();tb1.save();tb2.save();tb3.save();sc.save();scm.save();
         sca.save();
 
         Progressivo.creaProgressivoOrdine();
@@ -157,5 +151,21 @@ public class Query {
                 .list();
     }
 
+    public static List<Listino> getListino(String codiceart, String codicelis){
+        return Select.from(Listino.class)
+                .where(Condition.prop("codicearticolo").like(codiceart)).where(Condition.prop("codicelistino").like(codicelis))
+                .list();
+    }
+
+    public static List<ListinoCliente> getListinoCliente(String codicecli, String codiceart){
+        return Select.from(ListinoCliente.class)
+                .where(Condition.prop("codicecliente").like(codicecli)).where(Condition.prop("codicearticolo").like(codiceart))
+                .list();
+    }
+
+    public static List<TabellaSconto> getTabelleSconto(String codicesconto){
+         return Select.from(TabellaSconto.class)
+                .where(Condition.prop("codice").like(codicesconto)).list();
+    }
 }
 
