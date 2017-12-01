@@ -283,7 +283,7 @@ public class GestioneOrdini extends AppCompatActivity {
         return true;
     }
 
-    private boolean controllaDate(){
+    private boolean controllaDate() {
 
         String dataconsegna = ((EditText) findViewById(R.id.edittextdataconsegna)).getText().toString();
         String dataordine = ((EditText) findViewById(R.id.edittextdataordine)).getText().toString();
@@ -291,19 +291,22 @@ public class GestioneOrdini extends AppCompatActivity {
 
 
         SimpleDateFormat FORMATO_STANDARD = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY);
-
-        try {
-            FORMATO_STANDARD.parse(dataconsegna);
-        } catch (ParseException e) {
-            Utility.creaDialogoVeloce(this, "Errore nella data di consegna, inserire data nel formato gg/MM/YY o gg/MM/YYYY", "Testata Ordini, Errore con le date").create().show();
-            return false;
+        if (!dataconsegna.isEmpty()){
+            try {
+                FORMATO_STANDARD.parse(dataconsegna);
+            } catch (ParseException e) {
+                Utility.creaDialogoVeloce(this, "Errore nella data di consegna, inserire data nel formato gg/MM/YY o gg/MM/YYYY", "Testata Ordini, Errore con le date").create().show();
+                return false;
+            }
         }
-
-        try {
-            FORMATO_STANDARD.parse(dataordine);
-        } catch (ParseException e) {
-            Utility.creaDialogoVeloce(this, "Errore nella data dell'ordine, inserire data nel formato gg/MM/YY o gg/MM/YYYY", "Testata Ordini, Errore con le date").create().show();
-            return false;
+        if (!dataordine.isEmpty()) {
+            try {
+                FORMATO_STANDARD.parse(dataordine);
+            } catch (ParseException e) {
+                Utility.creaDialogoVeloce(this, "Errore nella data dell'ordine, inserire data nel formato gg/MM/YY o gg/MM/YYYY", "Testata Ordini, Errore con le date").create().show();
+                return false;
+            }
+            return true;
         }
         return true;
     }

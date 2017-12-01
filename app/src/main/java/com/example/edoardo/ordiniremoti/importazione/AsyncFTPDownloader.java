@@ -117,7 +117,6 @@ public class AsyncFTPDownloader extends AsyncTask<String, Void, Void> {
                                     localFiles.get(i)));
                             success.set(i, ftp.retrieveFile(filenames.get(i), outputStream));
                             outputStream.flush();
-                            outputStream.close();
 
                         }
                         catch (Exception e) {
@@ -163,7 +162,7 @@ public class AsyncFTPDownloader extends AsyncTask<String, Void, Void> {
         catch (Exception e){
             e.printStackTrace();
             Log.e(LOGClass.IMPORTAZIONE, "Eccezione 2 non gestita");
-            Toast.makeText(sincronizza.context, "Eccezione 2 non gestita" + e.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(sincronizza.context, "Errore di rete, collegarsi ad internet tramite dati o wifi" + e.toString(), Toast.LENGTH_LONG).show();
         }
         finally {
             if (ftp != null) {
@@ -190,6 +189,7 @@ public class AsyncFTPDownloader extends AsyncTask<String, Void, Void> {
         }
         //TODO quando hai fatto l'interfaccia mostra qualcosa a video
         Toast.makeText(sincronizza.context, "Download Terminato", Toast.LENGTH_LONG).show();
+
         sincronizza.onDownloadComplete();
     }
 }

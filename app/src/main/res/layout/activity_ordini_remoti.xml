@@ -31,6 +31,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textSize="40dp"
+                android:onClick="sincronizza"
                 android:text="Sincronizza"
                 android:textColor="#ffffff" />
             <TextView

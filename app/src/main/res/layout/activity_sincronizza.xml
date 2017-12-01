@@ -22,7 +22,7 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:onClick="importaAnagrafiche"
                 android:layout_weight="1"/>
             <TextView
@@ -30,14 +30,14 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:layout_weight="3"
                 android:textSize="50dp"
                 android:text="Importa Anagrafiche"
                 android:textColor="#ffffff" />
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:onClick="importaAnagrafiche"
                 android:layout_weight="1"/>
         </LinearLayout>
@@ -124,7 +124,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="4"
         android:background="@color/mycolor"
         android:orientation="horizontal">
 

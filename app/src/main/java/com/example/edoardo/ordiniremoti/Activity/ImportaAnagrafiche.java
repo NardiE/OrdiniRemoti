@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class ImportaAnagrafiche extends AppCompatActivity {
     public static Context context;
     public ProgressDialog barProgressDialog = null;
+    public ProgressDialog importbarProgressDialog = null;
     public final Handler updateBarHandler = new Handler();
 
     @Override
@@ -106,17 +107,39 @@ public class ImportaAnagrafiche extends AppCompatActivity {
 
     public void onDownloadComplete(){
         //richiamato una volta effettuato download archivi, chiama Task per importazione nel database di tutte le tabelle necessarie
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                barProgressDialog.dismiss();
+                importbarProgressDialog = new ProgressDialog(ImportaAnagrafiche.this);
 
-        barProgressDialog.setProgress(0);
-        barProgressDialog.setTitle("Importazione");
-        barProgressDialog.setMessage("Sto Importando...");
-        startImport();
+                importbarProgressDialog.setTitle("Import");
+                importbarProgressDialog.setMessage("Sto Importando...");
+                importbarProgressDialog.setProgressStyle(importbarProgressDialog.STYLE_HORIZONTAL);
+                importbarProgressDialog.setProgress(0);
+                importbarProgressDialog.setMax(100);
+                importbarProgressDialog.show();
+                startImport();
+            }
+        });
+    }
+
+    public void aumentaProgressBar(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                barProgressDialog.incrementProgressBy(10);
+            }
+        });
     }
 
     public void startImport(){
+
         //richiamato alla fine di download ed importazione
         Query.cleanUp();
         preparaImportazione("CLI.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
+        importbarProgressDialog.incrementProgressBy(10);
+        preparaImportazione("ART.TXT", ImportazioneHelper.ARTICOLO_DIMENSIONESTRINGA);
         updateBarHandler.post(new Runnable() {
 
             public void run() {
@@ -124,7 +147,7 @@ public class ImportaAnagrafiche extends AppCompatActivity {
             }
 
         });
-        preparaImportazione("ART.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
+        preparaImportazione("LIS.TXT", ImportazioneHelper.LISTINO_DIMENSIONESTRINGA);
         updateBarHandler.post(new Runnable() {
 
             public void run() {
@@ -132,7 +155,7 @@ public class ImportaAnagrafiche extends AppCompatActivity {
             }
 
         });
-        preparaImportazione("LIS.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
+        preparaImportazione("BAR.TXT", ImportazioneHelper.BARCODE_DIMENSIONESTRINGA);
         updateBarHandler.post(new Runnable() {
 
             public void run() {
@@ -140,7 +163,7 @@ public class ImportaAnagrafiche extends AppCompatActivity {
             }
 
         });
-        preparaImportazione("BAR.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
+        preparaImportazione("DES.TXT", ImportazioneHelper.DESTINAZIONE_DIMENSIONESTRINGA);
         updateBarHandler.post(new Runnable() {
 
             public void run() {
@@ -148,7 +171,7 @@ public class ImportaAnagrafiche extends AppCompatActivity {
             }
 
         });
-        preparaImportazione("DES.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
+        preparaImportazione("LSC.TXT", ImportazioneHelper.LISTINOCLIENTE_DIMENSIONESTRINGA);
         updateBarHandler.post(new Runnable() {
 
             public void run() {
@@ -156,7 +179,7 @@ public class ImportaAnagrafiche extends AppCompatActivity {
             }
 
         });
-        preparaImportazione("LSC.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
+        preparaImportazione("TBL.TXT", ImportazioneHelper.TABELLASCONTO_DIMENSIONESTRINGA);
         updateBarHandler.post(new Runnable() {
 
             public void run() {
@@ -164,7 +187,7 @@ public class ImportaAnagrafiche extends AppCompatActivity {
             }
 
         });
-        preparaImportazione("TBL.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
+        preparaImportazione("SCC.TXT", ImportazioneHelper.SCONTOC_DIMENSIONESTRINGA);
         updateBarHandler.post(new Runnable() {
 
             public void run() {
@@ -172,7 +195,7 @@ public class ImportaAnagrafiche extends AppCompatActivity {
             }
 
         });
-        preparaImportazione("SCC.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
+        preparaImportazione("SCG.TXT", ImportazioneHelper.SCONTOCM_DIMENSIONESTRINGA);
         updateBarHandler.post(new Runnable() {
 
             public void run() {
@@ -180,15 +203,7 @@ public class ImportaAnagrafiche extends AppCompatActivity {
             }
 
         });
-        preparaImportazione("SCG.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        preparaImportazione("SCA.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
+        preparaImportazione("SCA.TXT", ImportazioneHelper.SCONTOCA_DIMENSIONESTRINGA);
         updateBarHandler.post(new Runnable() {
 
             public void run() {
@@ -198,6 +213,7 @@ public class ImportaAnagrafiche extends AppCompatActivity {
         });
         findViewById(R.id.downloadend).setVisibility(View.VISIBLE);
         findViewById(R.id.finito).setVisibility(View.VISIBLE);
+        barProgressDialog.dismiss();
     }
 
     public void preparaImportazione(String filename, int max_lenght){

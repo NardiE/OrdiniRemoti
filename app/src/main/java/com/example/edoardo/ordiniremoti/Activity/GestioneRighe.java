@@ -184,15 +184,18 @@ public class GestioneRighe extends AppCompatActivity {
                     // controllo se esiste lo sconto e se esiste setto la descrizione
                     String codicesconto = ((EditText) findViewById(R.id.edittextscontocliente)).getText().toString();
                     List<TabellaSconto> tabelle = Query.getTabelleSconto(codicesconto);
-                    if(tabelle.size() == 0){
+                    if(tabelle.size() == 0 && !codicesconto.isEmpty()){
                         //messaggio di errore e azzero sconto
                         Utility.creaDialogoVeloce(context, "Codice Sconto non esistente, prego digitare un altro codice", "Avviso").create().show();
                         ((EditText) findViewById(R.id.edittextscontocliente)).setText(calcolaScontoCliente());
 
                     }
-                    else{
+                    else if (!codicesconto.isEmpty()){
                         String descrizionescontocliente = getDescrizioneSconto(tabelle.get(0).getCodice());
                         ((TextView) findViewById(R.id.descrizionescontocliente)).setText(descrizionescontocliente);
+                    }
+                    else{
+                        ((TextView) findViewById(R.id.descrizionescontocliente)).setText("");
                     }
                     // calcolo l'importo
                     String importo = calcolaImportoTotale();
@@ -215,15 +218,18 @@ public class GestioneRighe extends AppCompatActivity {
                     // controllo se esiste lo sconto e se esiste setto la descrizione
                     String codicesconto = ((EditText) findViewById(R.id.edittextscontoarticolo)).getText().toString();
                     List<TabellaSconto> tabelle = Query.getTabelleSconto(codicesconto);
-                    if(tabelle.size() == 0){
+                    if(tabelle.size() == 0 && !codicesconto.isEmpty()){
                         //messaggio di errore e azzero sconto
                         Utility.creaDialogoVeloce(context, "Codice Sconto non esistente, prego digitare un altro codice", "Avviso").create().show();
                         ((EditText) findViewById(R.id.edittextscontoarticolo)).setText(calcolascontoArticolo());
 
                     }
-                    else{
+                    else if (!codicesconto.isEmpty()){
                         String descrizionescontoarticolo = getDescrizioneSconto(tabelle.get(0).getCodice());
                         ((TextView) findViewById(R.id.descrizionescontoarticolo)).setText(descrizionescontoarticolo);
+                    }
+                    else{
+                        ((TextView) findViewById(R.id.descrizionescontoarticolo)).setText("");
                     }
                     // calcolo l'importo
                     String importo = calcolaImportoTotale();
@@ -347,13 +353,14 @@ public class GestioneRighe extends AppCompatActivity {
 
         SimpleDateFormat FORMATO_STANDARD = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY);
 
-        try {
-            FORMATO_STANDARD.parse(dataconsegna);
-        } catch (ParseException e) {
-            Utility.creaDialogoVeloce(this, "Errore nella data di consegna, inserire data nel formato gg/MM/YY o gg/MM/YYYY", "Testata Ordini, Errore con le date").create().show();
-            return false;
+        if(!dataconsegna.isEmpty()) {
+            try {
+                FORMATO_STANDARD.parse(dataconsegna);
+            } catch (ParseException e) {
+                Utility.creaDialogoVeloce(this, "Errore nella data di consegna, inserire data nel formato gg/MM/YY o gg/MM/YYYY", "Testata Ordini, Errore con le date").create().show();
+                return false;
+            }
         }
-
         return true;
     }
 

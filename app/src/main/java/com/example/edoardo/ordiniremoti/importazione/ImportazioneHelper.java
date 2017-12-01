@@ -16,8 +16,8 @@ import com.example.edoardo.ordiniremoti.database.ScontoCA;
  * Created by edoardo on 20/12/16.
  */
 public class ImportazioneHelper {
-    public static int ARTICOLO_DIMENSIONESTRINGA = 159;
-    public static int CLIENTE_DIMENSIONESTRINGA = 711;
+    public static int ARTICOLO_DIMENSIONESTRINGA = 155;
+    public static int CLIENTE_DIMENSIONESTRINGA = 661;
     public static int DESTINAZIONE_DIMENSIONESTRINGA = 141;
     public static int BARCODE_DIMENSIONESTRINGA = 45;
     public static int LISTINO_DIMENSIONESTRINGA = 198;
@@ -37,8 +37,8 @@ public class ImportazioneHelper {
         String cm = line.substring(84,87);     // categoria merceologica
         String esistenza = line.substring(87,104);
         String pezzi_confezione = line.substring(104,121);
-        String lotto_vendita = line.substring(121,137);
-        String lotto_riordino = line.substring(137,159);
+        String lotto_vendita = line.substring(121,138);
+        String lotto_riordino = line.substring(138,155);
         Articolo arti = new Articolo(codice, descrizione, descrizione2, um, me,in,cm,esistenza,pezzi_confezione,lotto_vendita,lotto_riordino);
         arti.save();
         return arti;
@@ -52,20 +52,20 @@ public class ImportazioneHelper {
         String telefono = line.substring(74,89);
         String fax = line.substring(89,104);
         String telex = line.substring(104,119);
-        String via = line.substring(169,199);
-        String cap = line.substring(199,204);
-        String citta = line.substring(204,234);
-        String provincia = line.substring(234,236);
-        String descrizione_blocco = line.substring(236,266);
-        String blocco = line.substring(266,267);
-        String fuorifido = line.substring(267,268);
-        String email = line.substring(268,318);
-        String codicepagamento = line.substring(318,321);
-        String descrizionepagamento = line.substring(321,381);
-        String banca = line.substring(381,481);
-        String porto = line.substring(481,511);
-        String vettore1 = line.substring(511,611);
-        String vettore2 = line.substring(611,711);
+        String via = line.substring(119,149);
+        String cap = line.substring(149,154);
+        String citta = line.substring(154,184);
+        String provincia = line.substring(184,186);
+        String descrizione_blocco = line.substring(186,216);
+        String blocco = line.substring(216,217);
+        String fuorifido = line.substring(217,218);
+        String email = line.substring(218,268);
+        String codicepagamento = line.substring(268,271);
+        String descrizionepagamento = line.substring(271,331);
+        String banca = line.substring(331,431);
+        String porto = line.substring(431,461);
+        String vettore1 = line.substring(461,561);
+        String vettore2 = line.substring(561,661);
         Cliente clie = new Cliente(codice, descrizione, descrizione2, listino, telefono, fax, telex, via, cap, citta, provincia, descrizione_blocco, blocco, fuorifido, email,codicepagamento,descrizionepagamento,banca,vettore1,vettore2);
         clie.save();
         return clie;

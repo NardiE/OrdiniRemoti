@@ -115,7 +115,7 @@ public class OrdiniRemoti extends AppCompatActivity {
     }
 
     public void sincronizza(View v){
-        Intent i = new Intent(this,ListaOrdini.class);
+        Intent i = new Intent(this,Sincronizza.class);
         startActivity(i);
     }
 
