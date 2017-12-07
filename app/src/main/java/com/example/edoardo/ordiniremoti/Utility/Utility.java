@@ -3,6 +3,7 @@ package com.example.edoardo.ordiniremoti.Utility;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.LayoutInflater;
 
 /**
  * Created by edoardo on 23/10/2017.
@@ -41,6 +42,5 @@ public class Utility {
         dlgAlert.setCancelable(true);
         return dlgAlert;
     }
-
 
 }

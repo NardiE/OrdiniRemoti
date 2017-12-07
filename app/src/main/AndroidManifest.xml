@@ -19,7 +19,8 @@
         android:windowSoftInputMode="stateHidden"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".Activity.OrdiniRemoti">
+        <activity android:name=".Activity.OrdiniRemoti"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +33,7 @@
             android:value="ordiniremoti.db" />
         <meta-data
             android:name="VERSION"
-            android:value="9" />
+            android:value="12" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -40,15 +41,26 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.example.edoardo.ordiniremoti" />
 
-        <activity android:name=".Activity.CercaCliente" />
-        <activity android:name=".Activity.CercaArticolo" />
-        <activity android:name=".Activity.GestioneOrdini" />
-        <activity android:name=".Activity.GestioneRighe" />
-        <activity android:name=".Activity.Sincronizza" />
-        <activity android:name=".Activity.ImportaAnagrafiche" />
-        <activity android:name=".Activity.Impostazioni" />
-        <activity android:name=".Activity.EsportaOrdini" />
-        <activity android:name=".Activity.ListaOrdini"></activity>
+        <activity android:name=".Activity.CercaCliente"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activity.CercaArticolo"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".Activity.GestioneOrdini"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".Activity.GestioneRighe"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".Activity.Sincronizza"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".Activity.ImportaAnagrafiche"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".Activity.InserimentoCliente"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".Activity.Impostazioni"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".Activity.EsportaOrdini"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".Activity.ListaOrdini"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

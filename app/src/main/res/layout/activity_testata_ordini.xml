@@ -18,15 +18,30 @@
             android:layout_weight="1">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:background="@color/mycolor"
                 android:gravity="center"
                 android:text="Cliente"
                 android:onClick="cercaCliente"
                 android:textColor="#ffffff"
-                android:textSize="50dp" />
+                android:textSize="40dp" />
+
+            <TextView
+                android:id="@+id/gonuovocliente"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:background="@color/mycolor"
+                android:gravity="center"
+                android:onClick="nuovoCliente"
+                android:text="Nuovo"
+                android:textColor="#ffffff"
+                android:textSize="40dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -436,6 +451,7 @@
                 android:layout_weight="1"
                 android:background="@color/mycolor"
                 android:gravity="center"
+                android:contentDescription="Crea Riga"
                 android:onClick="creaRiga"
                 android:scaleType="fitCenter"
                 android:text="Cliente"
@@ -470,7 +486,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center_vertical"
             android:text="Desc. A."
             android:textColor="@color/black"
@@ -509,17 +525,6 @@
             android:textColor="@color/black"
             android:textSize="20dp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="Sconto"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -537,6 +542,27 @@
         </ListView>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/tl8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black"
+            android:text="Importo Totale:"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:id="@+id/goimportototale"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
@@ -551,6 +577,7 @@
                 android:scaleType="fitCenter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="Torna Indietro"
                 android:background="@color/mycolor"
                 android:onClick="goBack"
                 app:srcCompat="@drawable/undo"
@@ -563,6 +590,7 @@
             android:layout_weight="1">
             <ImageButton
                 android:layout_width="match_parent"
+                android:contentDescription="Conferma Ordine"
                 android:layout_height="match_parent"
                 android:background="@color/mycolor"
                 android:scaleType="fitCenter"

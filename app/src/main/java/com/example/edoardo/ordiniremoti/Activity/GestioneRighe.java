@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -95,6 +97,10 @@ public class GestioneRighe extends AppCompatActivity {
             Articolo art = Query.getArticolofromCode(riga.getCodicearticolo());
             // carico i campi nella maschera
             loadField(art);
+
+            //calcolo l'importo
+            String importo = calcolaImportoTotale();
+            ((TextView)findViewById(R.id.textviewimportototale)).setText(importo);
         }
 
         if (operazione == TipoOp.SCELTOARTICOLO){
@@ -238,6 +244,17 @@ public class GestioneRighe extends AppCompatActivity {
             }
         });
 
+        //edittextlistener su quantità per modifica prezzo e aggiornamento importo
+        setEditTextListener();
+
+        //controllo se è attivata l'opzione di blocco prezzi
+        SharedPreferences sharedpreferences = getSharedPreferences(Impostazioni.preferences, Context.MODE_PRIVATE);
+        if(sharedpreferences.getString(TipiConfigurazione.bloccoprezziesconti,"").equals("SI")){
+            // disabilito edittext di prezzi e sconti
+            disabilitaModificaPrezzieSconti();
+        }
+
+
     }
 
 
@@ -312,7 +329,7 @@ public class GestioneRighe extends AppCompatActivity {
         }
         if(verbose) {
             //faccio il controllo deL'ARTICOLO
-            if (riga.getCodicearticolo() == "" || riga.getCodicearticolo().length() > codicelenght) {
+            if (riga.getCodicearticolo().equals("") || riga.getCodicearticolo().length() > codicelenght) {
                 Utility.creaDialogoVeloce(this, "Errore nella scelta del'articolo, prego selezionare un articolo", "Testata Ordini, errore articolo").create().show();
                 return false;
 
@@ -401,15 +418,21 @@ public class GestioneRighe extends AppCompatActivity {
     }
 
     public void confermaRiga(View view) {
-        //se riesco ad aggiornare le informazioni e a salvare
-        if(updateAndSave(true)) {
+        //impossibile aggiungere riga senza quantità
+        if(!((EditText) findViewById(R.id.edittextquantita)).getText().toString().equals("")) {
+            //se riesco ad aggiornare le informazioni e a salvare
+            if (updateAndSave(true)) {
 
-            //ritorno alla schermata precedente
-            Intent i = new Intent(context, GestioneOrdini.class);
-            i.putExtra(TipoExtra.tipoop,TipoOp.INSERITARIGA);
-            i.putExtra(TipoExtra.tipoopprecedente, operazioneprecedente);
-            i.putExtra(TipoExtra.idordine, testata.getId());
-            startActivity(i);
+                //ritorno alla schermata precedente
+                Intent i = new Intent(context, GestioneOrdini.class);
+                i.putExtra(TipoExtra.tipoop, TipoOp.INSERITARIGA);
+                i.putExtra(TipoExtra.tipoopprecedente, operazioneprecedente);
+                i.putExtra(TipoExtra.idordine, testata.getId());
+                startActivity(i);
+            }
+        }
+        else{
+            Utility.creaDialogoVeloce(context, "Impossibile Creare Riga senza Quantità", "Avviso").create().show();
         }
     }
 
@@ -422,8 +445,10 @@ public class GestioneRighe extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
                 if (operazione == TipoOp.OP_INSERISCI) {
                     // se annullo in inserimento elimino la riga
-                    riga.save();
-                    riga.delete();
+                    if(riga!= null) {
+                        riga.save();
+                        riga.delete();
+                    }
                 }
                 if (operazione == TipoOp.SCELTOARTICOLO){
                     if(operazioneprecedente == TipoOp.OP_INSERISCI){
@@ -455,7 +480,7 @@ public class GestioneRighe extends AppCompatActivity {
         SharedPreferences sharedpreferences = getSharedPreferences(preferences, Context.MODE_PRIVATE);
         String codicelistino = sharedpreferences.getString(TipiConfigurazione.listinodefault,"");
         // se ho un listino di default prevale per tutto
-        if(codicelistino != ""){
+        if(!codicelistino.equals("")){
             listinolist = Query.getListino(myart.getCodice(), codicelistino);
             if(listinolist.size() == 0){
                 idlis = Long.parseLong("-1");
@@ -470,7 +495,7 @@ public class GestioneRighe extends AppCompatActivity {
             //cerco se esiste un listino nel Listino Cliente
             List <ListinoCliente> listinoclientelist = Query.getListinoCliente(c.getCodice(),myart.getCodice());
             if(listinoclientelist.size() == 0){
-                if(c.getListino() != "   "){
+                if(!c.getListino().isEmpty()){
                     listinolist = Query.getListino(myart.getCodice(), c.getListino());
                     if(listinolist.size() == 0){
                         idlis = Long.parseLong("-1");
@@ -528,16 +553,16 @@ public class GestioneRighe extends AppCompatActivity {
                 Utility.creaDialogoVeloce(context, "Errore sul parsing dei numeri, rivolgersi all'assistenza", "Errore Grave").create().show();
                 return "0";
             }
-            if(quantita <= qt1){
+            if(quantita <= qt1 || qt1 == 0){
                 return lsc.getPrezzo1();
             }
-            if(quantita <= qt2){
+            if(quantita <= qt2 || qt2 == 0){
                 return lsc.getPrezzo2();
             }
-            if(quantita <= qt3){
+            if(quantita <= qt3 || qt3 == 0){
                 return lsc.getPrezzo2();
             }
-            if(quantita <= qt4){
+            if(quantita <= qt4 || qt4 == 0){
                 return lsc.getPrezzo4();
             }
             else return "0";
@@ -558,16 +583,17 @@ public class GestioneRighe extends AppCompatActivity {
                 Utility.creaDialogoVeloce(context, "Errore sul parsing dei numeri, rivolgersi all'assistenza", "Errore Grave").create().show();
                 return "0";
             }
-            if(quantita <= qt1){
+            //se ho una quantità 0 ritorno quel valore li
+            if(quantita <= qt1 || qt1 == 0){
                 return ls.getPrezzo1();
             }
-            if(quantita <= qt2){
+            if(quantita <= qt2 || qt2 == 0){
                 return ls.getPrezzo2();
             }
-            if(quantita <= qt3){
+            if(quantita <= qt3 || qt3 == 0){
                 return ls.getPrezzo2();
             }
-            if(quantita <= qt4){
+            if(quantita <= qt4 || qt4 == 0){
                 return ls.getPrezzo4();
             }
             else return "0";
@@ -686,7 +712,7 @@ public class GestioneRighe extends AppCompatActivity {
 
     private void mostracampi(boolean mostra){
         int visible;
-        if (mostra == true) visible = View.VISIBLE;
+        if (mostra) visible = View.VISIBLE;
         else visible = View.INVISIBLE;
         findViewById(R.id.rl1).setVisibility(visible);
         findViewById(R.id.rl2).setVisibility(visible);
@@ -697,7 +723,7 @@ public class GestioneRighe extends AppCompatActivity {
         findViewById(R.id.rl7).setVisibility(visible);
     }
 
-    private TabellaSconto getTabellaSconto(String codicesconto){
+    public static TabellaSconto getTabellaSconto(String codicesconto){
         List <TabellaSconto> tabelle = Query.getTabelleSconto(codicesconto);
         if (tabelle.size() > 0){
             return tabelle.get(0);
@@ -730,11 +756,12 @@ public class GestioneRighe extends AppCompatActivity {
 
         try {
             quantita = Float.parseFloat(((EditText) findViewById(R.id.edittextquantita)).getText().toString());
-            prezzo = Float.parseFloat(calcolaPrezzo());
+            prezzo = Float.parseFloat(((EditText) findViewById(R.id.edittextprezzo)).getText().toString());
         }catch (Exception e){
             Utility.creaDialogoVeloce(context, "Scegliere la quantità", "Avviso").create().show();
             return "0";
         }
+
 
         // l'importo lo calcolo prendendo la stringa dallo sconto
         String scontoarticolo = ((EditText)findViewById(R.id.edittextscontoarticolo)).getText().toString();
@@ -822,5 +849,72 @@ public class GestioneRighe extends AppCompatActivity {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
+    }
+
+    public void setEditTextListener(){
+        EditText edittext = (EditText) findViewById(R.id.edittextquantita);
+        edittext.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                Thread thread = new Thread(){
+                    @Override
+                    public void run() {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Articolo myart = Query.getArticolofromCode(riga.getCodicearticolo());
+                                assegnaListino(myart);
+                                String prezzo = calcolaPrezzo();
+                                if(operazione != TipoOp.OP_MODIFICA) {
+                                    String scontoarticolo = calcolascontoArticolo();
+                                    String scontocliente = calcolaScontoCliente();
+                                    ((EditText) findViewById(R.id.edittextprezzo)).setText(prezzo);
+                                    ((EditText) findViewById(R.id.edittextscontoarticolo)).setText(scontoarticolo);
+                                    ((EditText) findViewById(R.id.edittextscontocliente)).setText(scontocliente);
+                                    String descrizionescontocliente = getDescrizioneSconto(scontocliente);
+                                    String descrizionescontoarticolo = getDescrizioneSconto(scontoarticolo);
+                                    ((TextView) findViewById(R.id.descrizionescontoarticolo)).setText(descrizionescontoarticolo);
+                                    ((TextView) findViewById(R.id.descrizionescontocliente)).setText(descrizionescontocliente);
+                                }
+                                String importo = calcolaImportoTotale();
+                                ((TextView)findViewById(R.id.textviewimportototale)).setText(importo);
+                            }
+                        });
+
+                    }
+                };
+                thread.start();
+            }
+
+
+        });
+    }
+
+    public void disabilitaModificaPrezzieSconti(){
+        EditText ed1 = (EditText) findViewById(R.id.edittextprezzo);
+        EditText ed2 = (EditText) findViewById(R.id.edittextscontoarticolo);
+        EditText ed3 = (EditText) findViewById(R.id.edittextscontocliente);
+
+        ed1.setFocusable(false);
+        ed2.setFocusable(false);
+        ed3.setFocusable(false);
+    }
+
+    @Override
+    public void onBackPressed() {//ritorno alla schermata precedente
     }
 }

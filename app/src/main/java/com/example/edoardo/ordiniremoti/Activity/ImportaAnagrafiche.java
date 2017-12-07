@@ -2,6 +2,7 @@ package com.example.edoardo.ordiniremoti.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,25 +12,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.edoardo.ordiniremoti.R;
+import com.example.edoardo.ordiniremoti.Utility.Utility;
 import com.example.edoardo.ordiniremoti.classivarie.TipiConfigurazione;
 import com.example.edoardo.ordiniremoti.database.Query;
+import com.example.edoardo.ordiniremoti.database.TestataOrdine;
 import com.example.edoardo.ordiniremoti.gestioneerrori.LOGClass;
 import com.example.edoardo.ordiniremoti.importazione.AsyncFTPDownloader;
+import com.example.edoardo.ordiniremoti.importazione.AsyncImporter;
 import com.example.edoardo.ordiniremoti.importazione.ImportazioneHelper;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ImportaAnagrafiche extends AppCompatActivity {
     public static Context context;
     public ProgressDialog barProgressDialog = null;
-    public ProgressDialog importbarProgressDialog = null;
+    ProgressBar pb;
     public final Handler updateBarHandler = new Handler();
 
     @Override
@@ -49,6 +58,14 @@ public class ImportaAnagrafiche extends AppCompatActivity {
     }
 
     public void downloadFile(View v){
+        // controllo se ho ancora ordini in sospeso (se li ho prima devo fare esportazione)
+        List<TestataOrdine> ordini = Select.from(TestataOrdine.class).list();
+        if(ordini.size() > 0){
+            Utility.creaDialogoVeloce(context, "Impossibile Importare le Anagrafiche Con Ordini in Coda,  \nEseguire l'Esportazione", "Avviso").create().show();
+            return;
+        }
+
+
         //TODO controllare se esterno o interno
         File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
@@ -77,8 +94,8 @@ public class ImportaAnagrafiche extends AppCompatActivity {
         filesname.add("SCG.txt");
         filesname.add("SCA.txt");
 
+        //noinspection UnusedAssignment
         Boolean result = false;
-        //TODO impostare parametri in impostazione
         SharedPreferences sharedpreferences = getSharedPreferences(Impostazioni.preferences, Context.MODE_PRIVATE);
         String serverftp = sharedpreferences.getString(TipiConfigurazione.serverftp,"ftp.signorini.it");
         String portaftp = sharedpreferences.getString(TipiConfigurazione.portaftp,"21");
@@ -93,8 +110,6 @@ public class ImportaAnagrafiche extends AppCompatActivity {
         }
 
 
-
-
         barProgressDialog = new ProgressDialog(ImportaAnagrafiche.this);
 
         barProgressDialog.setTitle("Download");
@@ -103,117 +118,26 @@ public class ImportaAnagrafiche extends AppCompatActivity {
         barProgressDialog.setProgress(0);
         barProgressDialog.setMax(100);
         barProgressDialog.show();
+
+
     }
 
-    public void onDownloadComplete(){
+    public void onDownloadComplete(boolean result){
         //richiamato una volta effettuato download archivi, chiama Task per importazione nel database di tutte le tabelle necessarie
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                barProgressDialog.dismiss();
-                importbarProgressDialog = new ProgressDialog(ImportaAnagrafiche.this);
-
-                importbarProgressDialog.setTitle("Import");
-                importbarProgressDialog.setMessage("Sto Importando...");
-                importbarProgressDialog.setProgressStyle(importbarProgressDialog.STYLE_HORIZONTAL);
-                importbarProgressDialog.setProgress(0);
-                importbarProgressDialog.setMax(100);
-                importbarProgressDialog.show();
-                startImport();
-            }
-        });
-    }
-
-    public void aumentaProgressBar(){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-        });
-    }
-
-    public void startImport(){
-
-        //richiamato alla fine di download ed importazione
-        Query.cleanUp();
-        preparaImportazione("CLI.TXT", ImportazioneHelper.CLIENTE_DIMENSIONESTRINGA);
-        importbarProgressDialog.incrementProgressBy(10);
-        preparaImportazione("ART.TXT", ImportazioneHelper.ARTICOLO_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        preparaImportazione("LIS.TXT", ImportazioneHelper.LISTINO_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        preparaImportazione("BAR.TXT", ImportazioneHelper.BARCODE_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        preparaImportazione("DES.TXT", ImportazioneHelper.DESTINAZIONE_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        preparaImportazione("LSC.TXT", ImportazioneHelper.LISTINOCLIENTE_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        preparaImportazione("TBL.TXT", ImportazioneHelper.TABELLASCONTO_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        preparaImportazione("SCC.TXT", ImportazioneHelper.SCONTOC_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        preparaImportazione("SCG.TXT", ImportazioneHelper.SCONTOCM_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        preparaImportazione("SCA.TXT", ImportazioneHelper.SCONTOCA_DIMENSIONESTRINGA);
-        updateBarHandler.post(new Runnable() {
-
-            public void run() {
-                barProgressDialog.incrementProgressBy(10);
-            }
-
-        });
-        findViewById(R.id.downloadend).setVisibility(View.VISIBLE);
-        findViewById(R.id.finito).setVisibility(View.VISIBLE);
-        barProgressDialog.dismiss();
+        if(result) {
+            barProgressDialog.setProgress(0);
+            barProgressDialog.setTitle("Importazione");
+            barProgressDialog.setMessage("Sto Importando...");
+            AsyncImporter importer = new AsyncImporter(this);
+            importer.execute();
+        }
+        else{
+            barProgressDialog.dismiss();
+            TextView finito = (TextView)findViewById(R.id.downloadend);
+            finito.setText("Errore, controllare la connessione");
+            finito.setTextColor(Color.RED);
+            finito.setVisibility(View.VISIBLE);
+        }
     }
 
     public void preparaImportazione(String filename, int max_lenght){
@@ -277,5 +201,42 @@ public class ImportaAnagrafiche extends AppCompatActivity {
         }
     }
 
+    public void onTaskComplete(){
+        //richiamato alla fine di download ed importazione
+        TextView finito = (TextView)findViewById(R.id.downloadend);
+        finito.setText("OK!");
+        findViewById(R.id.downloadend).setVisibility(View.VISIBLE);
+        findViewById(R.id.finito).setVisibility(View.VISIBLE);
+        barProgressDialog.dismiss();
 
+        // cancellare i files
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        final File file = new File(path,"CLI.txt");
+        file.delete();
+        final File file1 = new File(path,"ART.txt");
+        file1.delete();
+        final File file2 = new File(path,"BAR.txt");
+        file2.delete();
+        final File file3 = new File(path,"LIS.txt");
+        file3.delete();
+        final File file4 = new File(path,"DES.txt");
+        file4.delete();
+        final File file5 = new File(path,"LSC.txt");
+        file5.delete();
+        final File file6 = new File(path,"TBL.txt");
+        file6.delete();
+        final File file7 = new File(path,"SCC.txt");
+        file7.delete();
+        final File file8 = new File(path,"SCG.txt");
+        file8.delete();
+        final File file9 = new File(path,"SCA.txt");
+        file9.delete();
+    }
+
+
+
+    public void returntoMain(View view) {
+        Intent i = new Intent(this, OrdiniRemoti.class);
+        startActivity(i);
+    }
 }

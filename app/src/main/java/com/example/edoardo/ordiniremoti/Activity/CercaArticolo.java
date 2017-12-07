@@ -1,8 +1,6 @@
 package com.example.edoardo.ordiniremoti.Activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,22 +9,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.edoardo.ordiniremoti.R;
 import com.example.edoardo.ordiniremoti.CustomAdapter2;
+import com.example.edoardo.ordiniremoti.Utility.Utility;
 import com.example.edoardo.ordiniremoti.classivarie.TipoExtra;
 import com.example.edoardo.ordiniremoti.classivarie.TipoOp;
 import com.example.edoardo.ordiniremoti.database.Articolo;
-import com.example.edoardo.ordiniremoti.database.Cliente;
 import com.example.edoardo.ordiniremoti.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.edoardo.ordiniremoti.R.drawable.client;
 
 public class CercaArticolo extends AppCompatActivity {
     ArrayList<Articolo> dataModels;
@@ -39,6 +37,8 @@ public class CercaArticolo extends AppCompatActivity {
     Long idordine;
     Long idriga;
     private static CustomAdapter2 adapter;
+    private int preLast;
+    static int searchnumber = 100;
 
 
 
@@ -49,7 +49,10 @@ public class CercaArticolo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cerca_articolo);
 
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        try{
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        }catch (Exception e){
+        }
         // setto il titolo
         getSupportActionBar().setTitle("Ricerca Articoli");
         getSupportActionBar().setIcon(R.drawable.logomin);
@@ -69,8 +72,8 @@ public class CercaArticolo extends AppCompatActivity {
             }
 
             listView = (ListView) findViewById(R.id.articolo_list);
-
-            List<Articolo> articoli = Query.getTop100Items();
+            param = ((EditText)findViewById(R.id.cercaarticolo)).getText().toString();
+            List<Articolo> articoli = Query.getTopItemsbyParam(param,searchnumber);
             updateList(articoli);
 
             // listener per la ricerca veloce
@@ -102,6 +105,46 @@ public class CercaArticolo extends AppCompatActivity {
             });
 
             adapter.notifyDataSetChanged();
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener(){
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                // Make your calculation stuff here. You have all your
+                // needed info from the parameters of this function.
+
+                // Sample calculation to determine if the last
+                // item is fully visible.
+                final int lastItem = firstVisibleItem + visibleItemCount;
+
+
+                if(lastItem == totalItemCount)
+                {
+                    if(preLast!=lastItem)
+                    {
+                        //to avoid multiple calls for last item
+                        Thread thread = new Thread(){
+                            @Override
+                            public void run() {
+                                param = ((EditText)findViewById(R.id.cercaarticolo)).getText().toString();
+                                List<Articolo> returnlist = Query.getItemsSearching(param);
+                                sa.updateList(returnlist);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        sa.onTaskComplete();
+                                    }
+                                });
+
+                            }
+                        };
+                        thread.start();
+                        view.setSelection(lastItem);
+                        preLast = lastItem;
+                    }
+                }
+            }
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+        });
     }
 
     public void delete(View view) {
@@ -140,7 +183,7 @@ public class CercaArticolo extends AppCompatActivity {
                 Thread thread = new Thread(){
                     @Override
                     public void run() {
-                        List<Articolo> returnlist = Query.getItemsSearching(param);
+                        List<Articolo> returnlist = Query.getTopItemsbyParam(param,searchnumber);
                         sa.updateList(returnlist);
 
                         runOnUiThread(new Runnable() {

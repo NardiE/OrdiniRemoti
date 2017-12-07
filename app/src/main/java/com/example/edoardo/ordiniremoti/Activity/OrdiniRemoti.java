@@ -2,8 +2,10 @@ package com.example.edoardo.ordiniremoti.Activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,12 +13,16 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.example.edoardo.ordiniremoti.R;
 import com.example.edoardo.ordiniremoti.Utility.Utility;
+import com.example.edoardo.ordiniremoti.classivarie.TipiConfigurazione;
 import com.example.edoardo.ordiniremoti.classivarie.TipoExtra;
 import com.example.edoardo.ordiniremoti.classivarie.TipoOp;
 import com.example.edoardo.ordiniremoti.database.Articolo;
@@ -34,11 +40,14 @@ import java.nio.channels.FileChannel;
 
 public class OrdiniRemoti extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 1;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ordini_remoti);
+
+        context = this;
 
         //chiedo i permessi
         getPermission();
@@ -55,6 +64,22 @@ public class OrdiniRemoti extends AppCompatActivity {
         getSupportActionBar().setIcon(R.drawable.logomin);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.logomin);
+
+
+        // controllo che le impostazioni siano inserite
+        SharedPreferences sharedpreferences = getSharedPreferences(Impostazioni.preferences, Context.MODE_PRIVATE);
+
+        String serverftp = sharedpreferences.getString(TipiConfigurazione.serverftp, "errore");
+        String portaftp = sharedpreferences.getString(TipiConfigurazione.portaftp, "errore");
+        String nomeutente = sharedpreferences.getString(TipiConfigurazione.nomeutente, "errore");
+        String password = sharedpreferences.getString(TipiConfigurazione.password,"errore");
+        String listino = sharedpreferences.getString(TipiConfigurazione.listinodefault,"errore");
+
+        String nuovocliente = sharedpreferences.getString(TipiConfigurazione.nuovocliente,"errore");
+        if(nuovocliente.equals("errore") || serverftp.equals("errore") || portaftp.equals("errore") || nomeutente.equals("errore") || password.equals("errore") || listino.equals("errore")){
+            Intent i = new Intent(this,Impostazioni.class);
+            startActivity(i);
+        }
 
     }
 
@@ -73,8 +98,7 @@ public class OrdiniRemoti extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.impostazioni) {
-            Intent i = new Intent(this, Impostazioni.class);
-            startActivity(i);
+            avviaImpostazioni();
             return true;
         }
         if (id == R.id.info){
@@ -123,6 +147,7 @@ public class OrdiniRemoti extends AppCompatActivity {
         try {
             String state = Environment.getExternalStorageState();
             File sd = Environment.getExternalStorageDirectory();
+            //noinspection UnusedAssignment
             File data = Environment.getDataDirectory();
             if (Environment.MEDIA_MOUNTED.equals(state)) {
                 Log.d("Test", "sdcard mounted and writable");
@@ -170,5 +195,38 @@ public class OrdiniRemoti extends AppCompatActivity {
         Intent i = new Intent(this,ListaOrdini.class);
         i.putExtra(TipoExtra.tipoop, TipoOp.DEFAULT);
         startActivity(i);
+    }
+
+    //alertbuilder con password per impostazioni
+    public void avviaImpostazioni() {
+        //noinspection UnusedAssignment
+        boolean result = false;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.customdialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText edt = (EditText) dialogView.findViewById(R.id.edittextpassword);
+
+        dialogBuilder.setTitle("Inserisci Password");
+        dialogBuilder.setMessage("Se non si conosce la password, contattare l'assistenza");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //do something with edt.getText().toString();
+                if( (edt.getText().toString()).equals(getResources().getString(R.string.password))){
+                    Intent i = new Intent(context, Impostazioni.class);
+                    startActivity(i);
+                }
+                else{
+                    Utility.creaDialogoVeloce(context, "Password Errata", "Errore").create().show();
+                }
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

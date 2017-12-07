@@ -10,12 +10,15 @@ import android.os.Bundle;
 import com.example.edoardo.ordiniremoti.R;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.edoardo.ordiniremoti.*;
+import com.example.edoardo.ordiniremoti.Utility.Utility;
 import com.example.edoardo.ordiniremoti.classivarie.TipoExtra;
 import com.example.edoardo.ordiniremoti.classivarie.TipoOp;
 import com.example.edoardo.ordiniremoti.database.Cliente;
@@ -34,6 +37,8 @@ public class CercaCliente extends AppCompatActivity {
     private int operazione;
     private int operazioneprecedente;
     private static CustomAdapter adapter;
+    private int preLast;
+    static int searchnumber = 100;
 
 
     @Override
@@ -61,8 +66,8 @@ public class CercaCliente extends AppCompatActivity {
         }
 
         listView = (ListView) findViewById(R.id.client_list);
-
-        List<Cliente> clienti = Query.getTop100Clienti();
+        param = ((EditText)findViewById(R.id.cercacliente)).getText().toString();
+        List<Cliente> clienti = Query.getTopClientbyParam(param,searchnumber);
         updateList(clienti);
 
         // listener per la ricerca veloce
@@ -99,6 +104,47 @@ public class CercaCliente extends AppCompatActivity {
                     i.putExtra(TipoExtra.idcliente,client.getId());
                     startActivity(i);
                 }
+            }
+        });
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener(){
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                // Make your calculation stuff here. You have all your
+                // needed info from the parameters of this function.
+
+                // Sample calculation to determine if the last
+                // item is fully visible.
+                final int lastItem = firstVisibleItem + visibleItemCount;
+
+
+                if(lastItem == totalItemCount)
+                {
+                    if(preLast!=lastItem)
+                    {
+                        //to avoid multiple calls for last item
+                        Thread thread = new Thread(){
+                            @Override
+                            public void run() {
+                                param = ((EditText)findViewById(R.id.cercacliente)).getText().toString();
+                                List<Cliente> returnlist = Query.getClientsSearching(param);
+                                sc.updateList(returnlist);
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        sc.onTaskComplete();
+                                    }
+                                });
+
+                            }
+                        };
+                        thread.start();
+                        view.setSelection(lastItem);
+                        preLast = lastItem;
+                    }
+                }
+            }
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
             }
         });
 
@@ -141,7 +187,7 @@ public class CercaCliente extends AppCompatActivity {
                 Thread thread = new Thread(){
                     @Override
                     public void run() {
-                        List<Cliente> returnlist = Query.getClientsSearching(param);
+                        List<Cliente> returnlist = Query.getTopClientbyParam(param, searchnumber);
                         sc.updateList(returnlist);
 
                         runOnUiThread(new Runnable() {

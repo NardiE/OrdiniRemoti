@@ -66,6 +66,7 @@ import java.util.ArrayList;
         @Override
         public View getView(int position, View v, ViewGroup parent) {
             // Get the data item for this position
+            //noinspection UnusedAssignment
             Articolo artic = getItem(position);
             if (v==null)
             {

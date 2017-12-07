@@ -265,7 +265,7 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="0"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:maxLength="17"
                 android:textColor="@color/mycolor"
                 android:textSize="30dp" />
@@ -530,6 +530,7 @@
             android:background="@color/mycolor">
             <ImageButton
                 android:scaleType="fitCenter"
+                android:contentDescription="Annulla Riga"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:onClick="annullaRiga"
@@ -545,6 +546,7 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="Conferma Riga"
                 android:onClick="confermaRiga"
                 android:background="@color/mycolor"
                 android:scaleType="fitCenter"

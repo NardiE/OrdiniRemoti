@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:background="@color/mycolor"
             android:gravity="center|center_horizontal|center_vertical"
-            android:onClick="downloadFile"
+            android:onClick="uploadFile"
             android:text="ESPORTA GLI ORDINI"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="#ffffff"
@@ -47,15 +47,17 @@
 
         <ImageView
             android:id="@+id/finitoupload"
+            android:contentDescription="Finito"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="2"
             android:gravity="center"
+            app:srcCompat="@drawable/finito"
             android:onClick="returntoMain"
             android:scaleType="fitCenter"
             android:visibility="invisible"
-            app:srcCompat="@drawable/finito" />
+            />
 
         <TextView
             android:id="@+id/uploadend"

@@ -14,4 +14,5 @@ public class TipoOp {
     public static final int SELEZIONAARTICOLO = 9006;
     public static final int SCELTOARTICOLO = 9007;
     public static final int INSERITARIGA = 9008;
+    public static final int NUOVOCLIENTE = 9009;
 }

@@ -6,6 +6,7 @@ import com.orm.query.Select;
 import java.util.List;
 
 public class Cliente extends SugarRecord<Cliente> {
+    public static int codicelenght = 8;
     private String codice;
     private String descrizione;
     private String descrizione2;
@@ -26,11 +27,13 @@ public class Cliente extends SugarRecord<Cliente> {
     private String banca;
     private String vettore1;
     private String vettore2;
+    String partitaiva;
+    String note;
 
     public Cliente(){
     }
 
-    public Cliente(String codice, String descrizione, String descrizione2, String listino, String telefono, String fax, String telex, String via, String cap, String citta, String provincia, String descrizione_blocco, String blocco, String fuorifido, String email, String codicepagamento, String descrizionepagamento, String banca, String vettore1, String vettore2) {
+    public Cliente(String codice, String descrizione, String descrizione2, String listino, String telefono, String fax, String telex, String via, String cap, String citta, String provincia, String descrizione_blocco, String blocco, String fuorifido, String email, String codicepagamento, String descrizionepagamento, String banca, String vettore1, String vettore2, String piva, String note) {
         this.codice = codice;
         this.descrizione = descrizione;
         this.descrizione2 = descrizione2;
@@ -51,6 +54,8 @@ public class Cliente extends SugarRecord<Cliente> {
         this.banca = banca;
         this.vettore1 = vettore1;
         this.vettore2 = vettore2;
+        this.partitaiva = piva;
+        this.note = note;
     }
 
     public String getCodice() {
@@ -211,5 +216,21 @@ public class Cliente extends SugarRecord<Cliente> {
 
     public void setVettore2(String vettore2) {
         this.vettore2 = vettore2;
+    }
+
+    public String getPartitaiva() {
+        return partitaiva;
+    }
+
+    public void setPartitaiva(String partitaiva) {
+        this.partitaiva = partitaiva;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

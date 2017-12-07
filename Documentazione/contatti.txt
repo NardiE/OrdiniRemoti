@@ -1,0 +1,2 @@
+$0000000;mario;rossi;fasuola;castelfidard;50051;FI;057164167;01783410481;nardiedoardo@gmail.com;pagamento: come gli pare
+$0000001;franco;gi;abs;cart;50015;FR;3334460058;1;n@g.com;note cliente

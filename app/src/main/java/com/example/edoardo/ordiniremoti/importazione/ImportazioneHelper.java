@@ -63,10 +63,11 @@ public class ImportazioneHelper {
         String codicepagamento = line.substring(268,271);
         String descrizionepagamento = line.substring(271,331);
         String banca = line.substring(331,431);
+        //noinspection UnusedAssignment
         String porto = line.substring(431,461);
         String vettore1 = line.substring(461,561);
         String vettore2 = line.substring(561,661);
-        Cliente clie = new Cliente(codice, descrizione, descrizione2, listino, telefono, fax, telex, via, cap, citta, provincia, descrizione_blocco, blocco, fuorifido, email,codicepagamento,descrizionepagamento,banca,vettore1,vettore2);
+        Cliente clie = new Cliente(codice, descrizione, descrizione2, listino, telefono, fax, telex, via, cap, citta, provincia, descrizione_blocco, blocco, fuorifido, email,codicepagamento,descrizionepagamento,banca,vettore1,vettore2, "", "");
         clie.save();
         return clie;
     }

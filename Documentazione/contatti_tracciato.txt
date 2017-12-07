@@ -1,0 +1,3 @@
+CodiceCliente;Descrizione;Descrizione2;Via;Città;Cap;Provincia;Telefono;PartitaIva;Email;Note
+
+* Il codice di un cliente Generato da tablet (quindi tutti i clienti nel file contatti) iniziano per $

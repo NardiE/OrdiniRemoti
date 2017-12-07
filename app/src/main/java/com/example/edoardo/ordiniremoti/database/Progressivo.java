@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Progressivo extends SugarRecord<Progressivo> {
     public static String ORDINE = "ordine";
-    public static String RIGA = "riga";
+    public static String CLIENTE = "cliente";
     private String codice;
     private int valore;
 
@@ -46,7 +46,7 @@ public class Progressivo extends SugarRecord<Progressivo> {
     }
 
     public static boolean eliminaProgressivoOrdine(){
-        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").like(Progressivo.ORDINE)).list();
+        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").eq(Progressivo.ORDINE)).list();
 
         if (lp.size() == 1) {
             Progressivo p = lp.get(0);
@@ -59,7 +59,7 @@ public class Progressivo extends SugarRecord<Progressivo> {
     }
 
     public static boolean aumentaProgressivoOrdine(){
-        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").like(Progressivo.ORDINE)).list();
+        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").eq(Progressivo.ORDINE)).list();
 
         if (lp.size() == 1) {
             Progressivo p = lp.get(0);
@@ -74,7 +74,50 @@ public class Progressivo extends SugarRecord<Progressivo> {
     }
 
     public static int getLastProgressivoOrdine(){
-        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").like(Progressivo.ORDINE)).list();
+        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").eq(Progressivo.ORDINE)).list();
+        if (lp.size() == 1) {
+            return lp.get(0).getValore();
+        }
+        else{
+            return 1;
+        }
+    }
+
+    public static void creaProgressivoCliente(){
+        Progressivo p = new Progressivo(Progressivo.CLIENTE, 0);
+        p.save();
+    }
+
+    public static boolean eliminaProgressivoCliente(){
+        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").eq(Progressivo.CLIENTE)).list();
+
+        if (lp.size() == 1) {
+            Progressivo p = lp.get(0);
+            p.delete();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static boolean aumentaProgressivoCliente(){
+        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").eq(Progressivo.CLIENTE)).list();
+
+        if (lp.size() == 1) {
+            Progressivo p = lp.get(0);
+            int valore = p.getValore();
+            p.setValore(valore + 1);
+            p.save();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static int getLastProgressivoCliente(){
+        List <Progressivo> lp = Select.from(Progressivo.class).where(Condition.prop("codice").eq(Progressivo.CLIENTE)).list();
         if (lp.size() == 1) {
             return lp.get(0).getValore();
         }

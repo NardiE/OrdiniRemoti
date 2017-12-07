@@ -18,6 +18,11 @@ public class Query {
         return articolofind;
     }
 
+    public static List<Articolo> getAll(){
+        return Select.from(Articolo.class).list();
+    }
+
+
     public static List<Articolo> getItemsSearching(String param){
         String SQL1 = "SELECT * FROM Articolo WHERE codice LIKE '%" + param + "%' OR descrizione LIKE '%" + param + "%'";
         List<Articolo> articolofind;
@@ -25,19 +30,15 @@ public class Query {
         return articolofind;
     }
 
-    public static List<Articolo> getAll(){
-        return Select.from(Articolo.class).list();
-    }
-
     public static List<Articolo> getTop100Items(){
         return Select.from(Articolo.class).limit("100").list();
     }
 
-    public static List<Articolo> getTop100ItemsbyParam(String param){
-        return Select.from(Articolo.class)
-                .where(Condition.prop("codice").like(param),
-                        Condition.prop("descrizione").like(param))
-                .limit("100").list();
+    public static List<Articolo> getTopItemsbyParam(String param, int limit){
+        String SQL1 = "SELECT * FROM Articolo WHERE codice LIKE '%" + param + "%' OR descrizione LIKE '%" + param + "%' LIMIT " + limit + "";
+        List<Articolo> articolofind;
+        articolofind = Articolo.findWithQuery(Articolo.class,SQL1);
+        return articolofind;
     }
 
     public static List<Cliente> getClientsSearching(String param){
@@ -47,14 +48,41 @@ public class Query {
         return clientsfind;
     }
 
+    public static List<Cliente> getTopClientbyParam(String param, int limit){
+        String SQL1 = "SELECT * FROM Cliente WHERE codice LIKE '%" + param + "%' OR descrizione LIKE '%" + param + "%' LIMIT " + limit + "";
+        List<Cliente> clientsfind;
+        clientsfind = Cliente.findWithQuery(Cliente.class,SQL1);
+        return clientsfind;
+    }
+
+    public static List<Cliente> getTop100Clienti(){
+        return Select.from(Cliente.class).limit("100").list();
+    }
+
     public static List<TestataOrdine> getOrdiniFromClient(String codicecliente){
         return Select.from(TestataOrdine.class)
                 .where(Condition.prop("codicecliente").like(codicecliente))
                 .list();
     }
 
-    public static List<Cliente> getTop100Clienti(){
-        return Select.from(Cliente.class).limit("100").list();
+    // cancella ordini e azzera i progressivi
+    public static void softCleanUp(){
+
+        List<Cliente> clients = Query.getNuoviClienti();
+
+        for(Cliente c: clients){
+            c.delete();
+        }
+
+        TestataOrdine.deleteAll(TestataOrdine.class);
+        RigaOrdine.deleteAll(RigaOrdine.class);
+        TestataOrdine.executeQuery("delete from sqlite_sequence where name='TESTATAORDINE'");
+        RigaOrdine.executeQuery("delete from sqlite_sequence where name='RIGAORDINE'");
+
+        Progressivo.eliminaProgressivoOrdine();
+        Progressivo.creaProgressivoOrdine();
+        Progressivo.eliminaProgressivoCliente();
+        Progressivo.creaProgressivoCliente();
     }
 
     public static void cleanUp(){
@@ -72,7 +100,7 @@ public class Query {
         RigaOrdine.deleteAll(RigaOrdine.class);
 
         Cliente.executeQuery("delete from sqlite_sequence where name='CLIENTE'");
-        Barcode.executeQuery("delete from sqlite_sequence where name='BARCODE'");;
+        Barcode.executeQuery("delete from sqlite_sequence where name='BARCODE'");
         Articolo.executeQuery("delete from sqlite_sequence where name='ARTICOLO'");
         Destinazione.executeQuery("delete from sqlite_sequence where name='DESTINAZIONE'");
         Listino.executeQuery("delete from sqlite_sequence where name='LISTINO'");
@@ -85,11 +113,14 @@ public class Query {
         RigaOrdine.executeQuery("delete from sqlite_sequence where name='RIGAORDINE'");
 
         Progressivo.eliminaProgressivoOrdine();
+        Progressivo.creaProgressivoOrdine();
+        Progressivo.eliminaProgressivoCliente();
+        Progressivo.creaProgressivoCliente();
     }
 
     public static void insertSample(){
 
-        Cliente c1 = new Cliente("CLIENTE1","Cliente Uno","Spa","MIO","057164655","","","Via Rossi 46","50051","Castelfiorentino","Firenze","","","","edo--91@hotmail.it","RIB","Ricevuta Bancaria","Banca Popolare di Milano","vettore1","vettore2");
+        /*Cliente c1 = new Cliente("CLIENTE1","Cliente Uno","Spa","MIO","057164655","","","Via Rossi 46","50051","Castelfiorentino","Firenze","","","","edo--91@hotmail.it","RIB","Ricevuta Bancaria","Banca Popolare di Milano","vettore1","vettore2");
         Cliente c2 = new Cliente("CLIENTE2","Cliente Due","Spa","TUO","057164655","","","Via Bianchi 46","50051","Castelfiorentino","Firenze","","","","edo--91@hotmail.it","RIB","Ricevuta Bancaria","Banca Popolare di Milano","vettore1","vettore2");
         Cliente c3 = new Cliente("CLIENTE3","Cliente Tre","Spa","SUO","057164655","","","Via Rossi 46","50051","Castelfiorentino","Firenze","","","","edo--91@hotmail.it","RIB","Ricevuta Bancaria","Banca Popolare di Milano","vettore1","vettore2");
         Cliente c4 = new Cliente("CLIENTE3","Cliente Tre","Spa","   ","057164655","","","Via Rossi 46","50051","Castelfiorentino","Firenze","","","","edo--91@hotmail.it","RIB","Ricevuta Bancaria","Banca Popolare di Milano","vettore1","vettore2");
@@ -122,7 +153,7 @@ public class Query {
         c1.save();c2.save();c3.save();a1.save();a2.save();l1.save();l2.save();d1.save();d2.save();d3.save();d4.save();lc1.save();lc2.save();tb1.save();tb2.save();tb3.save();sc.save();scm.save();
         sca.save();
 
-        Progressivo.creaProgressivoOrdine();
+        Progressivo.creaProgressivoOrdine();*/
     }
 
     public static Cliente getClientefromCode(String param){
@@ -166,6 +197,22 @@ public class Query {
     public static List<TabellaSconto> getTabelleSconto(String codicesconto){
          return Select.from(TabellaSconto.class)
                 .where(Condition.prop("codice").like(codicesconto)).list();
+    }
+
+    public static List <Cliente> getNuoviClienti(){
+        String SQL1 = "SELECT * FROM Cliente WHERE codice LIKE '$%'";
+        //noinspection UnusedAssignment
+        List<Cliente> clientsfind;
+        return Cliente.findWithQuery(Cliente.class,SQL1);
+    }
+
+    public static TestataOrdine getTestata(int progressivo){
+        List<TestataOrdine> testatefind =   Select.from(TestataOrdine.class)
+                                            .where(Condition.prop("progressivo").eq(progressivo)).list();
+        if(testatefind.size() == 1){
+            return testatefind.get(0);
+        }
+        else return null;
     }
 }
 

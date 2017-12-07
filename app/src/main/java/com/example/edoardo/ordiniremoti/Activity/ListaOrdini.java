@@ -169,10 +169,15 @@ public class ListaOrdini extends AppCompatActivity {
 
         for(TestataOrdine testata: testate){
             HashMap<String, String> elementolista = new HashMap<>();
+            Cliente c = Query.getClientefromCode(testata.getCodicecliente());
+            String descrizione = "";
+            if(c != null){
+                descrizione = c.getDescrizione();
+            }
             //TODO mettere qualche informazione in magazzino e ragione sociale
             elementolista.put("IDORDINE", "" + testata.getId());
             elementolista.put("CODICECLIENTE", "" + testata.getCodicecliente());
-            elementolista.put("RAGIONESOCIALE", "" + testata.getCodicecliente());
+            elementolista.put("RAGIONESOCIALE", "" + descrizione);
             elementolista.put("NUMEROORDINE", "" + testata.getNumeroordine());
             elementolista.put("DATAORDINE", "" + testata.getDataordine());
             elementolista.put("MAGAZZINO", "");
@@ -212,12 +217,13 @@ public class ListaOrdini extends AppCompatActivity {
         ragionetw.setText(ragionesociale);
     }
 
-    @Override
-    public void onBackPressed() {
-    }
-
     public void goBack(View view) {
         Intent i = new Intent(this, OrdiniRemoti.class);
         startActivity(i);
     }
+
+    @Override
+    public void onBackPressed() {
+    }
+
 }

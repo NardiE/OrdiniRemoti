@@ -1,0 +1,5 @@
+ProgressivoOrdine;CodiceCliente;CodiceDestinazione;DataConsegna;Dataordine;Numeroordine;Notetestata;ProgressivoRiga;Codicearticolo;Quantita;Prezzo;Scontocliente;Scontoarticolo;Dataconsegna;Noteriga;Tiporiga
+
+* Se il progressivo dell'ordine è negativo è generato da Tablet
+** Se il progressivo della riga è -1 è una riga generata da tablet (Nel caso del progetto per Cuspis esisteranno degli ordini non creati da tablet con righe non create da tablet)
+*** Il Tipo Riga può essere N O M

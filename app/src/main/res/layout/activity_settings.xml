@@ -139,7 +139,7 @@
                     android:inputType="textPassword"
                     android:textStyle="bold" />
         </LinearLayout>
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp">
@@ -168,6 +168,68 @@
                     android:hint="XXX"
                     android:inputType="textCapCharacters"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="#000000"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:text="Inserimento Nuovo Cliente"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="#000000"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/inserimentonuovocliente"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:maxLength="3"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="#000000"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:text="Blocco Prezzi e Sconti"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                    android:textColor="#000000"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/bloccoprezziesconti"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:maxLength="3"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="#000000"
                     android:textSize="30dp"
                     android:textStyle="bold" />
